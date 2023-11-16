@@ -5,4 +5,5 @@ import ./mkFlake.nix iogx-inputs //
 import ./mkGitRevOverlay.nix iogx-inputs //
 import ./mkHaskellProject.nix iogx-inputs // 
 import ./mkHydraRequiredJob.nix iogx-inputs // 
-import ./mkShell.nix iogx-inputs
+import ./mkShell.nix iogx-inputs //
+import ./mkContainer.nix iogx-inputs

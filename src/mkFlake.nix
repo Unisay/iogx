@@ -64,6 +64,7 @@ let
       mkShell = repoRoot.src.core.mkShell;
       mkHaskellProject = repoRoot.src.core.mkHaskellProject;
       mkHydraRequiredJob = repoRoot.src.core.mkHydraRequiredJob;
+      mkContainer = repoRoot.src.core.mkContainer;
 
       inherit (iogx) utils modularise options;
     };
