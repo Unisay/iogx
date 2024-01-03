@@ -7,7 +7,7 @@ creating releases from repositories using IOGX.
 
 For engineers focused on the development and maintenance of a product, releases
 are only a means to distribute their works in a way that they are strongly
-associated with an identifier that is fit uses when communicating with users
+associated with an identifier that can be clearly communicated to users
 (typically a version number).
 
 For these engineers, any actions they have to take or decisions they have to
