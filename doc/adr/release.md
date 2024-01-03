@@ -12,7 +12,7 @@ associated with an identifier that is fit uses when communicating with users
 
 For these engineers, any actions they have to take or decisions they have to
 make, that don't provide real control over what works are distributed in
-releases and when releases are made, are complexities they face in pursute of
+releases and when releases are made, are complexities they face in pursuit of
 their goal.
 
 To manage these complexities engineers require knowledge that is very irrelevant
@@ -27,9 +27,9 @@ releases.
 ### Release Scheduling
 
 There is a need for better solutions for release scheduling, but this ADR will
-focus on providing a solution that integrates well with the tools and processe
+focus on providing a solution that integrates well with the tools and processes
 the smart contracts teams are already using to schedule release, mainly Github
-Actions and manully creating releases.
+Actions and manually creating releases.
 
 ## Current state
 
@@ -103,15 +103,15 @@ The [Release Identifier](#release-identifier).
 
 The [Release Configuration](#release-configuration) acts that the main set of
 [Controls](#controls) provided to the user. As [Controls](#controls), the values
-user provides for the [Release Configuration](#release-configuration) determins
+user provides for the [Release Configuration](#release-configuration) determines
 which [Objectives](#objective-notion) are [User Objectives](#user-objective),
-what paramiters are used in those [Objectives](#objective-notion) and ultimally
+what parameters are used in those [Objectives](#objective-notion) and ultimately
 what the contents of the [Release Plan](#release-plan).
 
 For the `create_release` executable to work their needs to be a `release.yml` or
 `release.yaml` file at the root of the git repository using IOGX.
 
-The release config file will have the fallowing options...
+The release configuation file will have the fallowing options...
 
 ##### `title.prefix`
 
@@ -119,7 +119,7 @@ The release config file will have the fallowing options...
 - Default: Empty String
 
 A prefix combined with the [Release Identifier](#release-identifier)
-to form a release title to be used in content where human reababliy is important.
+to form a release title to be used in content where human readability is important.
 
 ##### `description.text`
 
@@ -165,13 +165,13 @@ call for it.
 - Default: Empty Map
 
 A mapping from the desired name of the asset in the GitHub release to the file
-to exsist under that asset name.
+to exist under that asset name.
 
 > Note: All values (`flake-output-path`s) must resolve to files.
 
 <!-- -->
 > Note: There cannot be any naming conflicts between names to be used as asset
-names in the Github release.
+names in the GitHub release.
 
 Example
 
@@ -203,8 +203,8 @@ results in the files at these paths being uploaded to GitHub.
 
 ###### `flake-output-path` Type
 
-In the relese configuation file, a `flake-output-path` is a value that
-represents a node from a path in a derivation accesible from a project's flake
+In the release configuration file, a `flake-output-path` is a value that
+represents a node from a path in a derivation accessible from a project's flake
 `outputs`. To use the node, the derivation needs to be built first.
 
 A `flake-output-path` value can take one of the forms...
@@ -233,7 +233,7 @@ Examples
 
 ###### [`git.tag.always-publish`](#git.tag.always-publish) is `True`
 
-Include [Tag exists on GitHub](#Tag-exsist-on-GitHub)
+Include [Tag exists on GitHub](#Tag-exist-on-GitHub)
 
 ###### [`github.release.always-publish`](#github.release.always-publish) is `True`
 
@@ -252,8 +252,8 @@ the appropriate contents.
 
 Check if release exists on GitHub
 
-- If it does not exist, achive via [Create GitHub release](#create-github-release)
-- If it does exist, not achivable.
+- If it does not exist, achieve via [Create GitHub release](#create-github-release)
+- If it does exist, not achievable.
 
 ###### Tag exists on GitHub
 
@@ -261,30 +261,30 @@ A git tag for the HEAD commit, with the appropriate contents, is publish to
 public git repositories.
 
 - Check if tag exists on GitHub
-  - If it does not exist, achive via [Push remote tag](#push-remote-tag).
+  - If it does not exist, achieve via [Push remote tag](#push-remote-tag).
   - If it does exist, check if it is as expected
-    - If it is, achived.
-    - If it is not, not achivable.
+    - If it is, achieved.
+    - If it is not, not achievable.
 
 ###### GitHub Cli configured correctly
 
 - Check if the GitHub Cli is configured correctly
-  - If it is, achived.
-  - If it is not, not achivable.
+  - If it is, achieved.
+  - If it is not, not achievable.
 
 ###### Tag exists locally
 
 - Check if tag exists locally
-  - If it does not exists, achive via [Create local tag](#create-local-tag).
+  - If it does not exists, achieve via [Create local tag](#create-local-tag).
   - If it does exists, check if it is as expected
-    - If it is, achived.
-    - If it is not, not achivable.
+    - If it is, achieved.
+    - If it is not, not achievable.
 
 ###### Git configured correctly
 
 - Check if git is configured correctly
-  - If it is, achived.
-  - If it is not, not achivable.
+  - If it is, achieved.
+  - If it is not, not achievable.
 
 ##### Changes
 
@@ -395,7 +395,7 @@ Determin what the [User Objectives](#user-objective) are in this release.
 Which [Objectives](#objective-notion) are [User Objective](#release-objective) is
 determined by checking the [Release Configuration](#release-configuration) for
 [Indicators](#indicators) that the user wants an [Objectives](#objective-notion)
-achived by the executable.
+achieved by the executable.
 
 See [Objectives](#objective-notion), [User Objective](#release-objective),
 [Indicators](#indicators-notion) and [Controls](#controls).
@@ -457,13 +457,13 @@ github:
 ##### 3. Build the Release DAG
 
 Once the script knows the [User Objectives](#user-objective) few things must be
-determined to proced.
+determined to proceed.
 
 1. What are all of the [Release Objectives](#release-objective)?
-2. Is the executable not able to achive any of the
+2. Is the executable not able to achieve any of the
 [Release Objectives](#release-objective)?
-3. Have all of the [Release Objectives](#release-objective) been achived?
-4. Are there achivable [Release Objectives](#release-objective)?
+3. Have all of the [Release Objectives](#release-objective) been achieved?
+4. Are there achievable [Release Objectives](#release-objective)?
 
 To be able to answer all of those questions the script builds a
 [Release DAG](#release-dag) from the [User Objectives](#user-objective).
@@ -473,16 +473,16 @@ as a list of trees to clearly show the user what
 [Release Objectives](#release-objective) and
 [Release Changes](#release-change) are targeted for the release.
 
-If there are any non-achivable [Release Objectives](#release-objective) in the
+If there are any non-achievable [Release Objectives](#release-objective) in the
 [Release DAG](#release-dag), then they are described to the user in error
 messages and the executable exits with an error code.
 
-If all of the [Release Objectives](#release-objective) have been achived (and
-as a result there are no [Release Changes](#release-change)), then a messasge
+If all of the [Release Objectives](#release-objective) have been achieved (and
+as a result there are no [Release Changes](#release-change)), then a massage
 is show to the user explaining that release has already been created and there
 is nothing to do, and exit with a success code.
 
-If there are [Release Objectives](#release-objective) that are achivable
+If there are [Release Objectives](#release-objective) that are achievable
 threw enacting [Release Changes](#release-change) then continue the next step.
 
 #### 4. Build the Release Plan
@@ -517,7 +517,7 @@ For every [Release Change](#release-change)
         failed to enact the [Change](#change-notion), and display the output
         from preforming the [Action](#action-notion).
         2. Display the [Release Changes](#release-change) that have not yet been
-        enacted and explain that they will not be attmpted.
+        enacted and explain that they will not be attempted.
         3. For every [Release Change](#release-change) that has been enacted,
         in reverse order...
             1. Display that a [Revert Action](#revert-action-notion) will be
@@ -537,38 +537,38 @@ For every [Release Change](#release-change)
                     [Release Changes](#release-change) will not have a
                     [Revert Action](#revert-action-notion) attempted and display
                     the [Revert Action](#revert-action-notion).
-                    3. Exit with an error message explaing that the
-                    [Release Plan](#release-plan) failled and a
-                    [Revert Action](#revert-action-notion) failled preventing
+                    3. Exit with an error message explaining that the
+                    [Release Plan](#release-plan) failed and a
+                    [Revert Action](#revert-action-notion) failed preventing
                     a clean revert of the release.
-        4. Exit with an error message explaing that the
-        [Release Plan](#release-plan) failled and a message saying that the
+        4. Exit with an error message explaining that the
+        [Release Plan](#release-plan) failed and a message saying that the
         [Release Changes](#release-change) that were enacted were successfully
         reverted.
 3. Display a message saying that the [Release Plan](#release-plan) was
 successfully enacted.
 
-### Methodoligy
+### Methodology
 
-Having a methodoligy here has value over simpliy directly writing a program flow
+Having a methodology here has value over simply directly writing a program flow
 to fit the specification for the inputs and the outputs.
 
 1. Building of domain objects - Given that building software is more often a
-social issue than it is a techincal one, when builing something new it is
-important that some domain objects are tested threw implimenation. Good ones
+social issue than it is a technical one, when building something new it is
+important that some domain objects are tested threw implementation. Good ones
 will last or evolve and bad one will break, but if no domain objects are tested
 the software is likely to never establish a clear role and be subjected to
-fequent restructuring.
-2. Easier to understand - A good methodoligy has clear rules and behaviors.
-While it is posible that a motivation for a change comes along that does not fit
-in methodoligy, this methodolgy does keeps things simpler than if it was just a
-bunch of functions calling eachother, and should be better equiped for change.
-3. More predictable - Having a strcutre that spans all of the details keeps from
+frequent restructuring.
+2. Easier to understand - A good methodology has clear rules and behaviors.
+While it is possible that a motivation for a change comes along that does not fit
+in methodology, this methodology does keeps things simpler than if it was just a
+bunch of functions calling each other, and should be better equipped for change.
+3. More predictable - Having a structure that spans all of the details keeps from
 UX issues cropping up from detail to detail and keeps the UX predictable. See
 [Principle of least astonishment](https://en.wikipedia.org/wiki/Principle_of_least_astonishment).
 4. Safe pre-optimization - Pre-optimization can be more useful than not it is
-more flexable and clear than the alternative.
-5. Structure - Sometimes it is good to start with a structure, expecially if
+more flexible and clear than the alternative.
+5. Structure - Sometimes it is good to start with a structure, especially if
 there has been a lot of research and assumptions need testing.
 
 ### Concepts
@@ -576,44 +576,44 @@ there has been a lot of research and assumptions need testing.
 #### Objectives and Changes
 
 We use the two notions of [Objectives](#objective-notion) and
-[Changes](#change-notion) as a foundation to provide a more consistant, reliable
-and userfirendly expreice to users of the system while providing clear guide
-lines to the developers of the system for how to maintiably make the speific
-required checks and actions interact consistantly.
+[Changes](#change-notion) as a foundation to provide a more consistent, reliable
+and user-friendly experience to users of the system while providing clear guide
+lines to the developers of the system for how to maintainability make the specific
+required checks and actions interact consistently.
 
 When we look at what any system needs to do to solve creating releases for
-users, we see that dynamicly determing a precices sequence of actions to achive
-an end state that user desires is at the core of the system. To achive that we
+users, we see that dynamically determine a precise sequence of actions to achieve
+an end state that user desires is at the core of the system. To achieve that we
 need to have clear ideas to represent the user's desires and the sequence of
 actions to preform to meet them.
 
-We chose specificly [Objectives](#objective-notion) becuase it best represents
-"a desire for a state" which we can reasonably garente predicitable control over
-to the user. And we chose [Changes](#change-notion), becuase while the system
+We chose specifically [Objectives](#objective-notion) because it best represents
+"a desire for a state" which we can reasonably guarantee predictable control over
+to the user. And we chose [Changes](#change-notion), because while the system
 will preform _actions_ on user's behalf, the user does not care about the action
 preformed they only care about the change that resulted from it. The mutually
-recuive nature of the two ideas allows more than the top level objectives to
-make use of these concepts, taking less transparent and less structed code and
+recursive nature of the two ideas allows more than the top level objectives to
+make use of these concepts, taking less transparent and less structured code and
 bringing it into the fold of the concepts driving the program, simplifying the
-implimentation and enabling code reuse, thus enabling a more maintainable
+implementation and enabling code reuse, thus enabling a more maintainable
 implementation.
 
 The concepts specified also enables more transparency to the users while being
-more adaptive to thier enviorments. The dynamic, recursive
+more adaptive to their environments. The dynamic, recursive
 [Objectives](#objective-notion) enable the system adapt to the user's
-enviorments while being clear as to what aspects of its enviorments it is
+environments while being clear as to what aspects of its environments it is
 responding to. This means that as the system gets used, users will be able to
-more easily reconfigure thier enviorments if need be to create release and while
+more easily reconfigure their environments if need be to create release and while
 also better understanding how it is functioning enabling them to better report
-bugs and suddgest features.
+bugs and suggest features.
 
-With this methodoligy, the system that attempts to require the least input
-posible and preforms the least consiquential actions posible to meet the user's
+With this methodology, the system that attempts to require the least input
+possible and preforms the least consequential actions possible to meet the user's
 desires. This means that it should never require more information than the user
 would have need to provide the minimal individual tools if they made the release
 manually.
 
-This methodoligy also enables rapid growth of the system. The fallowing changes
+This methodology also enables rapid growth of the system. The fallowing changes
 should end up being mostly only additive.
 
 1. Adding new controls that give the user more controls over how
@@ -623,63 +623,63 @@ should end up being mostly only additive.
 [User Objectives](#user-objective)
 3. Fixing an [Change](#change-notion) that should requires some state by adding
 a [Precondition](#preconditions-notion).
-4. Include [User Objective](#user-objective) on partiucal value of
+4. Include [User Objective](#user-objective) on particular value of
 user input.
 
-The [Objectives DAG](#objectives-dag) also enables a sort of short curcuting,
-allways preforming a check if a [Change](#change-notion) need enacting. Meaning
+The [Objectives DAG](#objectives-dag) also enables a sort of short circuiting,
+always preforming a check if a [Change](#change-notion) need enacting. Meaning
 if the user wants to make a release and all of the
-[User Objectives](#user-objective) are already achived nothing
+[User Objectives](#user-objective) are already achieved nothing
 needs to happen. Likewise, [Objectives](#objective-notion) are only checked if
 they need to be, meaning the user will not have to deal with any error
-irrelivant to their release.
+irrelevant to their release.
 
 The [Objectives DAG](#objectives-dag) also makes it easy to generate detailed
 release plans before enacting any [Changes](#change-notion).
 
-Some other benifits...
+Some other befits...
 
-1. Minimizing the amount of actions preformed to achive the user's desired
-state, thus minimizing the residual complexity encoded by stateful actions
-into stateful systems.
-2. Minimzing the interactions and information required from the user to achive
+1. Minimizing the amount of actions preformed to achieve the user's desired
+state, thus minimizing the residual complexity encoded by state-full actions
+into state-full systems.
+2. Minimizing the interactions and information required from the user to achieve
 the user's desired state.
 3. Clearly communicating to the user what actions need to be preformed and why,
-given the current state, to achive thier desired state.
-4. Preforming the actions to achive the user's desired state in a order from
-least consiquential to most consiquental, avoiding preforming more consiquentail
-actions if less consiquental ones fail. This is important becuase the user has a
-singual desire for the state, if something failled in the release processs they
-don't want a lot of big changes to be enached.
+given the current state, to achieve their desired state.
+4. Preforming the actions to achieve the user's desired state in a order from
+least consequential to most consequential, avoiding preforming more consequential
+actions if less consequential ones fail. This is important because the user has a
+single desire for the state, if something failed in the release process they
+don't want a lot of big changes to be enacted.
 5. In the event that an actions fails, clearly communicating to the user what
 actions failed and why, what actions were enacted and what state was effected,
 what actions were not enacted, and what aspects of the user's desired end state
-have not been achived.
-6. In the event that an actions fails, atempting to revert enacted actions in
-order to leave an undesired state for a previouly desired state.
+have not been achieved.
+6. In the event that an actions fails, attempting to revert enacted actions in
+order to leave an undesired state for a previously desired state.
 
 ##### Objective (Notion)
 
 An [Objective](#objective-notion) is a desire for a state.
 
-It is made from code that can analize state and provide one of three results...
+It is made from code that can analyze state and provide one of three results...
 
-1. Achived - The desired state has been achived.
-2. Enact Change - A [Change](#change-notion) that can be enached to achive the
+1. Achieved - The desired state has been achieved.
+2. Enact Change - A [Change](#change-notion) that can be enacted to achieve the
 desired state.
-3. Cannot Achive - The system cannot enach any [Change](#change-notion) to
-achive the desired state.
+3. Cannot Achieve - The system cannot enact any [Change](#change-notion) to
+achieve the desired state.
 
 ##### Change (Notion)
 
-A [Change](#change-notion) is a singlar action that can be preformed that is
-atomic and cuases a change of state.
+A [Change](#change-notion) is a singular action that can be preformed that is
+atomic and causes a change of state.
 
-The system has the ability to preform two mjaor operations with
+The system has the ability to preform two major operations with
 [Changes](#change-notion).
 
 1. Enacting the [Change](#change-notion), given that all of the
-[Preconditions](#preconditions-notion) have been achived, optionally using the
+[Preconditions](#preconditions-notion) have been achieved, optionally using the
 [State Check](#state-check-notion) to check if the [Change](#change-notion) has
 been enacted.
 2. Reverting an enacted [Change](#change-notion), with the
@@ -689,29 +689,29 @@ It is made of...
 
 ###### Preconditions (Notion)
 
-A set of zero or more [Objectives](#objective-notion) that need to be achived
+A set of zero or more [Objectives](#objective-notion) that need to be achieved
 before preforming the [Action](#action-notion).
 
 ###### Action (Notion)
 
-Code that atomicly cuases a stateful change. Preformed to enact its
+Code that atomically causes a state-full change. Preformed to enact its
 [Change](#change-notion).
 
 ###### State Check (Notion)
 
 An optional check for a state that would indicate if the
-[Action](#action-notion) has succesfully cuased the [Change](#change-notion) to
+[Action](#action-notion) has successfully caused the [Change](#change-notion) to
 be enacted.
 
 ###### Revert Action (Notion)
 
-An optional bit of code that atomicly reverts the [Change](#change-notion)
-given is has been succesfully enacted.
+An optional bit of code that atomically reverts the [Change](#change-notion)
+given is has been successfully enacted.
 
 #### Controls
 
 The [Controls](#controls) are tools that the system provides to the user that
-allows the user to communicate thier high-level content-focused desires for the
+allows the user to communicate their high-level content-focused desires for the
 end state of the release.
 
 It is important that the controls are...
@@ -724,13 +724,13 @@ works are distributed in the forms of content that they desire.
 #### User Objective
 
 A [User Objective](#user-objective) is an [Objective](#objective-notion) that
-the system determins the user directly wants achived.
+the system determines the user directly wants achieved.
 
 The set of [Objectives](#objective-notion) that have been determined to be
 [User Objectives](#user-objective) drive the system, as they are the only
 [Objective](#objective-notion) with direct value to the user.
 
-The system uses [Indicators](#indicators-notion) to determin the
+The system uses [Indicators](#indicators-notion) to determine the
 [User Objectives](#user-objective) from the users use of the
 [Controls](#controls).
 
@@ -742,7 +742,7 @@ included as [User Objectives](#user-objective).
 
 #### Release DAG
 
-The [Release DAG](#release-dag) is a dircted acyclic graph containing...
+The [Release DAG](#release-dag) is a directed acyclic graph containing...
 
 1. All of the [Release Objectives](#release-objective).
 2. No [Objectives](#objective-notion) that are not
@@ -753,30 +753,30 @@ The [Release DAG](#release-dag) is a dircted acyclic graph containing...
 
 The [Release DAG](#release-dag) is constructed by taking the directed acyclic
 graph derived from the [User Objectives](#user-objective) and traversing the
-graph breath-first and preforming the state analizing code of each
-[Objective](#objective-notion) and locgically removing edges from
+graph breath-first and preforming the state analyzing code of each
+[Objective](#objective-notion) and logically removing edges from
 [Objective](#objective-notion) to [Change](#change-notion) where result of the
-[Objective](#objective-notion)'s state analisis was not "Enact Change".
+[Objective](#objective-notion)'s state analysis was not "Enact Change".
 
 From the [Release DAG](#release-dag) the system can derive...
 
 1. A Multi-tree representation of all the
 [Release Objectives](#release-objective) and [Release Changes](#release-change).
     1. Showing what [Release Objectives](#release-objective) are already
-    achived, cannot be achived and require what
-    [Release Change](#release-change) can be enacted to achive it.
+    achieved, cannot be achieved and require what
+    [Release Change](#release-change) can be enacted to achieve it.
     2. Showing a complete view of what [Release Objectives](#release-objective)
     depend on what [Release Changes](#release-change) and visa-versa.
-2. A list of un-achiveble [Release Objectives](#release-objective) and why they
-are not achiveble by the system.
-3. A reversed toplogically sorted list of all the
-[Release Changes](#release-change) that would need to be enacted to achive all
-of the achiveable [Release Objectives](#release-objective).
+2. A list of un-achievable [Release Objectives](#release-objective) and why they
+are not achievable by the system.
+3. A reversed topologically sorted list of all the
+[Release Changes](#release-change) that would need to be enacted to achieve all
+of the achievable [Release Objectives](#release-objective).
 
 #### Release Objective
 
 A [Release Objective](#release-objective) is a [Objective](#objective-notion)
-that the system has determind needs to be achived to complete the release.
+that the system has determine needs to be achieved to complete the release.
 
 For an [Objective](#objective-notion) to be a
 [Release Objective](#release-objective) it at least needs to be a
@@ -786,7 +786,7 @@ for at least one [Release Change](#release-change).
 #### Release Change
 
 A [Release Change](#release-change) is a [Change](#change-notion) that the
-system has determind needs to be enacted to complete the release.
+system has determine needs to be enacted to complete the release.
 
 For a [Change](#change-notion) to be a [Release Change](#release-change) it at
 least needs a [User Objective](#user-objective) or a
@@ -795,12 +795,12 @@ least needs a [User Objective](#user-objective) or a
 #### Release Plan
 
 The [Release Plan](#release-plan) is an ordered sequence of
-[Release Change](#release-change) to enact to achive all of the achivable
+[Release Change](#release-change) to enact to achieve all of the achievable
 [Release Objective](#release-objective).
 
 The [Release Plan](#release-plan) is constructed by getting a reversed
-toplogically sorted list of all the [Release Changes](#release-change) that
-would need to be enacted to achive all of the achiveable
+topologically sorted list of all the [Release Changes](#release-change) that
+would need to be enacted to achieve all of the achievable
 [Release Objectives](#release-objective) from the [Release DAG](#release-dag).
 
 Also, Given that release actions are expected to be very dependent on services
@@ -816,8 +816,8 @@ to be enacted.
 
 #### Release Identifier
 
-The [Release Identifier](#release-identifier) is simply a string uniqe to
-each release. It is used as the foundation for every identifer represneting the
+The [Release Identifier](#release-identifier) is simply a string unique to
+each release. It is used as the foundation for every identifier representing the
 content distributed under the release.
 
 ## Notes
@@ -826,36 +826,36 @@ content distributed under the release.
 
 Given a set of distinct root [Objectives](#objective-notion), we have a directed
 acyclic graph of [Objectives](#objective-notion) and [Changes](#change-notion)
-as verticies, an edge from any [Objective](#objective-notion) to a
-[Change](#change-notion) when the [Objective](#objective-notion) has a posible
-"Enact Change" result from the state analisis, and an edges for each
-[Change](#change-notion) to its one or more prerequiset
+as vertices, an edge from any [Objective](#objective-notion) to a
+[Change](#change-notion) when the [Objective](#objective-notion) has a possible
+"Enact Change" result from the state analysis, and an edges for each
+[Change](#change-notion) to its one or more precondition
 [Objectives](#objective-notion).
 
-By preforming the state analizing code of each [Objective](#objective-notion)
-and locgically removing edges from [Objective](#objective-notion) to
+By preforming the state analyzing code of each [Objective](#objective-notion)
+and logically removing edges from [Objective](#objective-notion) to
 [Change](#change-notion) where result of the [Objective](#objective-notion)'s
-state analisis was not "Enact Change".
+state analysis was not "Enact Change".
 
 We get a DAG only containing...
 
 1. [Objectives](#objective-notion) that are either root
 [Objectives](#objective-notion) or [Objectives](#objective-notion) that are
-prerequestes for [Changes](#change-notion) that need to be enacted to support a
+precondition for [Changes](#change-notion) that need to be enacted to support a
 root [Objective](#objective-notion).
-2. [Changes](#change-notion) that need to be enacted to achive a root
+2. [Changes](#change-notion) that need to be enacted to achieve a root
 [Objective](#objective-notion) or an [Objective](#objective-notion) that
 supports a root [Objective](#objective-notion).
 
-With this post-state-analisis DAG, we can easily obtain...
+With this post-state-analysis DAG, we can easily obtain...
 
-1. A toplogically sorted list of [Objectives](#objective-notion), each with an
-anaylisis result ("Achived", "Enact Change" or "Cannot Achive")
-2. If all the [Objectives](#objective-notion) have a "Achived" analysis result,
-and therefor all the root [Objectives](#objective-notion) have been achived.
-3. If there are any [Objectives](#objective-notion) with a "Cannot Achive"
+1. A topologically sorted list of [Objectives](#objective-notion), each with an
+analysis result ("Achieved", "Enact Change" or "Cannot Achieve")
+2. If all the [Objectives](#objective-notion) have a "Achieved" analysis result,
+and therefor all the root [Objectives](#objective-notion) have been achieved.
+3. If there are any [Objectives](#objective-notion) with a "Cannot Achieve"
 analysis result, and therefor if all the root [Objectives](#objective-notion)
-can be achived.
-4. A reversed toplogically sorted list of [Changes](#change-notion) to enact in
-order to achive all of the [Objectives](#objective-notion) left in the DAG,
+can be achieved.
+4. A reversed topologically sorted list of [Changes](#change-notion) to enact in
+order to achieve all of the [Objectives](#objective-notion) left in the DAG,
 including all of the original root [Objectives](#objective-notion).
