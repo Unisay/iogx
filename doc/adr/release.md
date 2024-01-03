@@ -189,7 +189,7 @@ github:
         path: /lib/foo2.so
       bar:
         output: packages.x86_64-linux.bar
-      biz-x86_64-linux: biz
+      biz: biz
 ```
 
 results in the files at these paths being uploaded to GitHub.
