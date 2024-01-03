@@ -101,12 +101,12 @@ The [Release Identifier](#release-identifier).
 
 #### Release Configuration
 
-The [Release Configuration](#Release-Configuration) acts that the main set of
-[Controls](#Control) provided to the user. As [Controls](#Control), the values
-user provides for the [Release Configuration](#Release-Configuration) determins
-which [Objectives](#Objectives-notion) are [User Objectives](#User-Objectives),
-what paramiters are used in those [Objectives](#Objectives-notion) and ultimally
-what the contents of the [Release Plan](#Release-Plan).
+The [Release Configuration](#release-configuration) acts that the main set of
+[Controls](#controls) provided to the user. As [Controls](#controls), the values
+user provides for the [Release Configuration](#release-configuration) determins
+which [Objectives](#objective-notion) are [User Objectives](#user-objective),
+what paramiters are used in those [Objectives](#objective-notion) and ultimally
+what the contents of the [Release Plan](#release-plan).
 
 For the `create_release` executable to work their needs to be a `release.yml` or
 `release.yaml` file at the root of the git repository using IOGX.
@@ -286,7 +286,7 @@ public git repositories.
   - If it is, achived.
   - If it is not, not achivable.
 
-##### Actions
+##### Changes
 
 ###### Create GitHub release
 
@@ -390,7 +390,7 @@ Error: Issues with configuration in "release.yaml". No release actions preformed
 
 ##### 2. Determine the User Objectives
 
-Determin what the [User Objective](#User-Objectives) are in this release.
+Determin what the [User Objectives](#user-objective) are in this release.
 
 Which [Objectives](#objective-notion) are [User Objective](#release-objective) is
 determined by checking the [Release Configuration](#release-configuration) for
@@ -456,29 +456,29 @@ github:
 
 ##### 3. Build the Release DAG
 
-Once the script knows the [User Objectives](#User-Objectives) few things must be
+Once the script knows the [User Objectives](#user-objective) few things must be
 determined to proced.
 
-1. What are all of the [Release Objectives](#Release-Objectives)?
+1. What are all of the [Release Objectives](#release-objective)?
 2. Is the executable not able to achive any of the
-[Release Objectives](#Release-Objectives)?
-3. Have all of the [Release Objectives](#Release-Objectives) been achived?
-4. Are there achivable [Release Objectives](#Release-Objectives)?
+[Release Objectives](#release-objective)?
+3. Have all of the [Release Objectives](#release-objective) been achived?
+4. Are there achivable [Release Objectives](#release-objective)?
 
 To be able to answer all of those questions the script builds a
-[Release DAG](#Release-DAG) from the [User Objectives](#User-Objectives).
+[Release DAG](#release-dag) from the [User Objectives](#user-objective).
 
 Once the [Release DAG](#release-dag) is built the script displays it to the user
 as a list of trees to clearly show the user what
-[Release Objectives](#Release-Objectives) and
-[Release Changes](#Release-Changes) are targeted for the release.
+[Release Objectives](#release-objective) and
+[Release Changes](#release-change) are targeted for the release.
 
-If there are any non-achivable [Release Objectives](#Release-Objectives) in the
-[Release DAG](#Release-DAG), then they are described to the user in error
+If there are any non-achivable [Release Objectives](#release-objective) in the
+[Release DAG](#release-dag), then they are described to the user in error
 messages and the executable exits with an error code.
 
-If all of the [Release Objectives](#Release-Objective) have been achived (and
-as a result there are no [Release Changes](#Release-Changes)), then a messasge
+If all of the [Release Objectives](#release-objective) have been achived (and
+as a result there are no [Release Changes](#release-change)), then a messasge
 is show to the user explaining that release has already been created and there
 is nothing to do, and exit with a success code.
 
@@ -619,18 +619,18 @@ should end up being mostly only additive.
 1. Adding new controls that give the user more controls over how
 [Changes](#change-notion) are preformed.
 2. Adding new controls that give when used enable new
-[Objectives](#Objective-notion) as
-[User Objectives](#User-Objectives)
-3. Fixing an [Change](#Change-notion) that should requires some state by adding
-a [Precondition](#Preconditions-notion).
-4. Include [User Objective](#User-Objectives) on partiucal value of
+[Objectives](#objective-notion) as
+[User Objectives](#user-objective)
+3. Fixing an [Change](#change-notion) that should requires some state by adding
+a [Precondition](#preconditions-notion).
+4. Include [User Objective](#user-objective) on partiucal value of
 user input.
 
 The [Objectives DAG](#objectives-dag) also enables a sort of short curcuting,
 allways preforming a check if a [Change](#change-notion) need enacting. Meaning
 if the user wants to make a release and all of the
-[User Objectives](#User-Objectives) are already achived nothing
-needs to happen. Likewise, [Objectives](#Objective-notion) are only checked if
+[User Objectives](#user-objective) are already achived nothing
+needs to happen. Likewise, [Objectives](#objective-notion) are only checked if
 they need to be, meaning the user will not have to deal with any error
 irrelivant to their release.
 
@@ -721,24 +721,24 @@ understand all details of how the creation of a release is achieved.
 - Content-focused as the users motivation for creating releases is that their
 works are distributed in the forms of content that they desire.
 
-#### User Objectives
+#### User Objective
 
-A [User Objective](#User-Objectives) is an [Objective](#Objective-notion) that
+A [User Objective](#user-objective) is an [Objective](#objective-notion) that
 the system determins the user directly wants achived.
 
-The set of [Objectives](#Objective-notion) that have been determined to be
-[User Objectives](#User-Objectives) drive the system, as they are the only
-[Objective](#Objective-notion) with direct value to the user.
+The set of [Objectives](#objective-notion) that have been determined to be
+[User Objectives](#user-objective) drive the system, as they are the only
+[Objective](#objective-notion) with direct value to the user.
 
-The system uses [Indicators](#Indicators-notion) to determin the
-[User Objectives](#User-Objectives) from the users use of the
-[Controls](#Controls).
+The system uses [Indicators](#indicators-notion) to determin the
+[User Objectives](#user-objective) from the users use of the
+[Controls](#controls).
 
 #### Indicators (Notion)
 
 Indicators are rules that look at the the user's use of the
-[Controls](#Controls), that decide if a [Objectives](#Objective-notion) are
-included as [User Objectives](#User-Objectives).
+[Controls](#controls), that decide if a [Objectives](#objective-notion) are
+included as [User Objectives](#user-objective).
 
 #### Release DAG
 
@@ -751,8 +751,8 @@ The [Release DAG](#release-dag) is a dircted acyclic graph containing...
 4. No [Changes](#change-notion) that are not [Release Changes](#release-change).
 5. Only [Objectives](#objective-notion) that have a know check result.
 
-The [Release DAG](#Release-DAG) is constructed by taking the directed acyclic
-graph derived from the [User Objectives](#User-Objectives) and traversing the
+The [Release DAG](#release-dag) is constructed by taking the directed acyclic
+graph derived from the [User Objectives](#user-objective) and traversing the
 graph breath-first and preforming the state analizing code of each
 [Objective](#objective-notion) and locgically removing edges from
 [Objective](#objective-notion) to [Change](#change-notion) where result of the
@@ -778,19 +778,19 @@ of the achiveable [Release Objectives](#release-objective).
 A [Release Objective](#release-objective) is a [Objective](#objective-notion)
 that the system has determind needs to be achived to complete the release.
 
-For an [Objective](#Objective-notion) to be a
-[Release Objective](#Release-Objective) it at least needs to be a
-[User Objective](#User-Objectives) or a [Precondition](#Preconditions-notion) a
-for at least one [Release Change](#Release-Change).
+For an [Objective](#objective-notion) to be a
+[Release Objective](#release-objective) it at least needs to be a
+[User Objective](#user-objective) or a [Precondition](#preconditions-notion) a
+for at least one [Release Change](#release-change).
 
 #### Release Change
 
 A [Release Change](#release-change) is a [Change](#change-notion) that the
 system has determind needs to be enacted to complete the release.
 
-For a [Change](#Change-notion) to be a [Release Change](#Release-Change) it at
-least needs a [User Objective](#User-Objectives) or a
-[Release Objective](#Release-Objective) to require it.
+For a [Change](#change-notion) to be a [Release Change](#release-change) it at
+least needs a [User Objective](#user-objective) or a
+[Release Objective](#release-objective) to require it.
 
 #### Release Plan
 
