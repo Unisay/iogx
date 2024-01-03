@@ -47,13 +47,13 @@ desired outcomes.
 convention across IOG or wider contexts.
 - Manually preform specific actions to create releases according to documented
 processes.
-- Creating custom release scrips and manually invoking them.
-- Configuring GitHub actions to automatically invoked custom release scripts on
+- Creating custom release scripts and manually invoking them.
+- Configuring GitHub actions to automatically invoke custom release scripts on
 specific events and schedules and under specific conditions.
 
-The manually processes are prone to errors and in-material inconsistencies from
+The manual processes are prone to errors and in-material inconsistencies from
 release to release. This is because manually creating release is a processes
-that is contains many decisions and processes and is typically preformed
+that contains many decisions and processes and is typically preformed
 in-frequently. Meaning it is a task that engineers likely have not done in a
 while, and have to make a lot of un-familiar decisions to complete.
 
@@ -62,7 +62,7 @@ errors and fallowing a documented process helps even more so, but when a
 engineer manually preforms these steps there is a chance for novel hard to
 debug issues to affect releases.
 
-The projects that use release scrips and automations can provide more consistent
+The projects that use release scripts and automations can provide more consistent
 error-free releases, and with less of a burden on everyone supporting the
 releases for the project, per release. The issue with the projects that have
 automations is that the automation code for every project is separate but seeks
@@ -108,7 +108,7 @@ which [Objectives](#objective-notion) are [User Objectives](#user-objective),
 what parameters are used in those [Objectives](#objective-notion) and ultimately
 what the contents of the [Release Plan](#release-plan).
 
-For the `create_release` executable to work their needs to be a `release.yml` or
+For the `create_release` executable to work there needs to be a `release.yml` or
 `release.yaml` file at the root of the git repository using IOGX.
 
 The release configuation file will have the fallowing options...
@@ -260,7 +260,7 @@ Check if release exists on GitHub
 
 ###### Tag exists on GitHub
 
-A git tag for the HEAD commit, with the appropriate contents, is publish to
+A git tag for the HEAD commit, with the appropriate contents, is published to
 public git repositories.
 
 - Check if tag exists on GitHub
@@ -393,7 +393,7 @@ Error: Issues with configuration in "release.yaml". No release actions preformed
 
 ##### 2. Determine the User Objectives
 
-Determin what the [User Objectives](#user-objective) are in this release.
+Determine what the [User Objectives](#user-objective) are in this release.
 
 Which [Objectives](#objective-notion) are [User Objective](#release-objective) is
 determined by checking the [Release Configuration](#release-configuration) for
@@ -412,7 +412,7 @@ description:
   include_github_generated_release_notes: true
 github:
   release:
-    asserts:
+    assets:
       foo-x86_64-linux:
         output: packages.x86_64-linux.foo
         path: /lib/foo.so
@@ -595,7 +595,7 @@ threw enacting [Release Changes](#release-change) then continue the next step.
 [Release Changes](#release-change) to enact in an order that one does not depend
 on the next.
 
-The ordered [Release Plan](#release-plan) is display to the user with
+The ordered [Release Plan](#release-plan) is displayed to the user with
 descriptions for each [Release Changes](#release-change) in the plan.
 
 Example
