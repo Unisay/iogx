@@ -231,17 +231,20 @@ Examples
 
 ##### Indicators
 
-###### [`git.tag.always-publish`](#git.tag.always-publish) is `True`
+###### Allways publish git tag (Indicator)
 
-Include [Tag exists on GitHub](#Tag-exist-on-GitHub)
+When [`git.tag.always-publish`](#git.tag.always-publish) is `True`, include
+[Tag exists on GitHub](#Tag-exist-on-GitHub).
 
-###### [`github.release.always-publish`](#github.release.always-publish) is `True`
+###### Allways publish GitHub release (Indicator)
 
-Include [Release exists on GitHub](#release-exists-on-github)
+When [`github.release.always-publish`](#github.release.always-publish) is `True`,
+include [Release exists on GitHub](#release-exists-on-github).
 
-###### [`github.release.assets`](#github.release.assets) is not the Empty Map
+###### Assets to publish (Indicator)
 
-Include [Release exists on GitHub](#release-exists-on-github)
+When [`github.release.assets`](#github.release.assets) is not the Empty Map,
+include [Release exists on GitHub](#release-exists-on-github).
 
 ##### Objectives
 
@@ -358,7 +361,7 @@ Create tag locally
 
 #### Process
 
-When the release script is invoked, the script preforms a few steps...
+When the release executable is invoked, the executable preforms a few steps...
 
 ##### 1. Parse Inputs
 
@@ -400,9 +403,9 @@ achieved by the executable.
 See [Objectives](#objective-notion), [User Objective](#release-objective),
 [Indicators](#indicators-notion) and [Controls](#controls).
 
-Example
+Examples
 
-With the `release.yaml` file.
+Given the `release.yaml` file.
 
 ```yml
 description:
@@ -415,10 +418,36 @@ github:
         path: /lib/foo.so
 ```
 
+- Becuase of the [Assets to publish indicator](#assets-to-publish-indicator)
+the [Release exists on GitHub](#release-exists-on-github)
+[Objective][#Objective notion) is a [User Objective](#user-objective).
+
+Given the `release.yaml` file.
+
+```yml
+description:
+  include_github_generated_release_notes: true
+git:
+  tag:
+    always-publish: True
+github:
+  release:
+    always-publish: True
+```
+
+- Becuase of the
+[Allways publish GitHub release indicator](#allways-publish-github-release-indicator)
+the [Release exists on GitHub](#release-exists-on-github)
+[Objective][#Objective notion) is a [User Objective](#user-objective).
+- Becuase of the
+[Allways publish git tag indicator](#allways-publish-git-tag-indicator)
+the [Tag exists on GitHub](#release-exists-on-github)
+[Objective][#Objective notion) is a [User Objective](#user-objective).
+
 ##### 3. Build the Release DAG
 
-Once the script knows the [User Objectives](#user-objective) few things must be
-determined to proceed.
+Once the executable knows the [User Objectives](#user-objective) few things must
+be determined to proceed.
 
 1. What are all of the [Release Objectives](#release-objective)?
 2. Is the executable not able to achieve any of the
@@ -426,13 +455,125 @@ determined to proceed.
 3. Have all of the [Release Objectives](#release-objective) been achieved?
 4. Are there achievable [Release Objectives](#release-objective)?
 
-To be able to answer all of those questions the script builds a
+To be able to answer all of those questions the executable builds a
 [Release DAG](#release-dag) from the [User Objectives](#user-objective).
 
-Once the [Release DAG](#release-dag) is built the script displays it to the user
-as a list of trees to clearly show the user what
-[Release Objectives](#release-objective) and
-[Release Changes](#release-change) are targeted for the release.
+Example
+
+Given the [User Objectives](#user-objective)...
+
+1. [Release exists on GitHub](#release-exists-on-github)
+2. [Tag exists on GitHub](#tag-exists-on-github)
+
+The DAG that would come from looking at the [User Objectives](#user-objective)
+(without running the state checks and using the results to build the
+[Release DAG](#release-dag).
+
+```mermaid
+graph TD
+    O-GHR[/Release exists on GitHub/]
+    O-GHT[/Tag exists on GitHub/]
+
+    C-CGHR{Create GitHub Release}
+    C-PRT{Push remote tag}
+
+O-GHR-->C-CGHR
+O-GHT-->C-PRT
+
+C-CGHR-->O-GHT
+
+    O-GCONF[Git configured]
+    O-GHCLICONF[GitHub Cli configured]
+    O-LOCALT[Tag exsts locally]
+
+C-CGHR-->O-GCONF
+C-CGHR-->O-GHCLICONF
+
+C-PRT-->O-GCONF
+C-PRT-->O-LOCALT
+
+    C-CTL{Create local tag}
+
+O-LOCALT-->C-CTL
+C-CTL-->O-GCONF
+```
+
+In a scenario where...
+
+1. The GitHub release already exists on GitHub therefor,
+[Release exists on GitHub](#release-exists-on-github) would be not achievable.
+2. The exact tag that the executable wants to push is on GitHub therefor,
+[Tag exists on GitHub](#tag-exists-on-github) would be achieved.
+
+This [Release DAG](#release-dag) is built...
+
+```mermaid
+graph TD
+    O-GHR[/Release exists on GitHub: Cannot Achive/]
+    O-GHT[/Tag exists on GitHuh: Achived/]
+```
+
+If a [Release Objective](#release-objective) that cannot be achieved then the
+release is not enacted.
+
+In a scenario where...
+
+1. The GitHub release does not exists on GitHub.
+2. The exact tag that the executable wants to push is on GitHub.
+3. Git is configured correctly.
+4. GitHub cli is configured correctly.
+
+This [Release DAG](#release-dag) is built...
+
+```mermaid
+graph TD
+    O-GHR[/Release exists on GitHub/]
+    O-GHT[/Tag exists on GitHuh: Achived/]
+
+    C-CGHR{Create GitHub Release}
+
+O-GHR-- Does not exsit --->C-CGHR
+
+
+C-CGHR-->O-GHT
+
+    O-GCONF[Git configured: Achived]
+    O-GHCLICONF[GitHub Cli configured: Achived]
+
+C-CGHR-->O-GCONF
+C-CGHR-->O-GHCLICONF
+```
+
+Here only one [Release Objective](#release-objective)
+([Release exists on GitHub](#release-exists-on-github)) needs a
+[Release Change](#release-change)
+([Create GitHub Release](#create-github-release)) enacted so that is can be
+achieved, and all of the [Preconditions](#preconditions-notion) of that
+[Release Change](#release-change) have been achieved. This
+[Release DAG](#release-dag) can be used to create a
+[Release Plan](#release-plan).
+
+Once the [Release DAG](#release-dag) is built the executable displays it to the
+user as a list of trees to clearly show the user what
+[Release Objectives](#release-objective) and [Release Changes](#release-change)
+are targeted for the release.
+
+Example
+
+```console
+Release graph
+> Release exists on GitHub: Create GitHub Release -
+    Git configured correctly: ✓
+    GitHub Cli configured correctly: ✓
+    Tag exists on GitHub: Push remote tag -
+      Git configured correctly: ✓
+      Tag exists locally: Create tag locally -
+        Git configured correctly: ✓
+> Tag exists on GitHub: Push remote tag -
+    Git configured correctly: ✓
+    Tag exists locally: Create tag locally -
+      Git configured correctly: ✓
+```
 
 If there are any non-achievable [Release Objectives](#release-objective) in the
 [Release DAG](#release-dag), then they are described to the user in error
@@ -456,6 +597,15 @@ on the next.
 
 The ordered [Release Plan](#release-plan) is display to the user with
 descriptions for each [Release Changes](#release-change) in the plan.
+
+Example
+
+```console
+Release plan
+1. Create tag locally
+2. Push remote tag
+3. Create GitHub Release
+```
 
 #### 5. Enact the Release Plan
 
@@ -508,6 +658,53 @@ For every [Release Change](#release-change)
         reverted.
 3. Display a message saying that the [Release Plan](#release-plan) was
 successfully enacted.
+
+Example
+
+```console
+Creating local git tag...
+Local git tag created.
+Pushing git tag to GitHub...
+Tag on GitHub.
+Creating Release on GitHub...
+Release created on GitHub.
+```
+
+```console
+Creating local git tag...
+Local git tag created.
+Pushing git tag to GitHub...
+error: Failled to push tag to GitHub!
+git: Premision denided
+Release plan failled.
+Release changes not attempted
+1. Create GitHub Release
+Enacted release changes to revert
+1. Create local git tag
+Reverting "Create local git tag"...
+Reverted "Create local git tag".
+Release plan reverted.
+Release failled.
+```
+
+```console
+Creating local git tag...
+Local git tag created.
+Pushing git tag to GitHub...
+error: Failled to push tag to GitHub!
+git: Premision denided
+Release plan failled.
+Release changes not attempted
+1. Create GitHub Release
+Enacted release changes to revert
+1. Create local git tag
+Reverting "Create local git tag"...
+Failled to revert "Create local git tag".
+git: error: tag 'v0.1.1' not found.
+Failed to revet release plan. Enacted release changes not reverted.
+1. Create local git tag. `git tag -d v0.1.1`
+Release failled.
+```
 
 ### Methodology
 
