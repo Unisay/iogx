@@ -58,4 +58,3 @@ cabalProject:
   #   purs-tidy.extraOptions = "";
   # };
 }
- 

@@ -7,7 +7,7 @@ let
 in
 
 [
-  ( 
+  (
     project.flake
   )
 ]

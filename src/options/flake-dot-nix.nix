@@ -14,16 +14,16 @@ let
       description = l.mkOption {
         type = l.types.str;
         description = ''
-          Arbitrary description for the flake. 
+          Arbitrary description for the flake.
 
-          This string is displayed when running `nix flake info` and other flake 
-          commands. 
+          This string is displayed when running `nix flake info` and other flake
+          commands.
 
-          It can be a short title for your project. 
+          It can be a short title for your project.
         '';
         example = l.literalExpression ''
-          # flake.nix 
-          { 
+          # flake.nix
+          {
             description = "My Haskell Project";
           }
         '';
@@ -32,29 +32,29 @@ let
       inputs = l.mkOption {
         type = l.types.attrs;
         description = ''
-          Your flake *must* define `iogx` among its inputs. 
+          Your flake *must* define `iogx` among its inputs.
 
-          In turn, IOGX manages the following inputs for you: 
-          [CHaP](https://github.com/input-output-hk/cardano-haskell-packages), 
-          [haskell.nix](https://github.com/input-output-hk/haskell.nix), 
-          [nixpkgs](https://github.com/NixOS/nixpkgs), 
-          [hackage.nix](https://github.com/input-output-hk/hackage.nix), 
-          [iohk-nix](https://github.com/input-output-hk/iohk-nix), 
-          [sphinxcontrib-haddock](https://github.com/michaelpj/sphinxcontrib-haddock), 
-          [pre-commit-hooks-nix](https://github.com/cachix/pre-commit-hooks.nix), 
-          [haskell-language-server](https://github.com/haskell/haskell-language-server), 
-          [easy-purescript-nix](https://github.com/justinwoo/easy-purescript-nix). 
+          In turn, IOGX manages the following inputs for you:
+          [CHaP](https://github.com/input-output-hk/cardano-haskell-packages),
+          [haskell.nix](https://github.com/input-output-hk/haskell.nix),
+          [nixpkgs](https://github.com/NixOS/nixpkgs),
+          [hackage.nix](https://github.com/input-output-hk/hackage.nix),
+          [iohk-nix](https://github.com/input-output-hk/iohk-nix),
+          [sphinxcontrib-haddock](https://github.com/michaelpj/sphinxcontrib-haddock),
+          [pre-commit-hooks-nix](https://github.com/cachix/pre-commit-hooks.nix),
+          [haskell-language-server](https://github.com/haskell/haskell-language-server),
+          [easy-purescript-nix](https://github.com/justinwoo/easy-purescript-nix).
 
-          If you find that you want to use a different version of some of the 
-          implicit inputs listed above, for instance because IOGX has not been 
-          updated, or because you need to test against a specific branch, you 
+          If you find that you want to use a different version of some of the
+          implicit inputs listed above, for instance because IOGX has not been
+          updated, or because you need to test against a specific branch, you
           can use the `follows` syntax like in the example above.
 
-          Note that the Haskell template `flake.nix` does this by default with 
+          Note that the Haskell template `flake.nix` does this by default with
           `CHaP`, `hackage.nix` and `haskell.nix`.
 
-          It is of course possible to add other inputs (not already managed by 
-          IOGX) in the normal way. 
+          It is of course possible to add other inputs (not already managed by
+          IOGX) in the normal way.
 
           For example, to add `nix2container` and `cardano-world`:
 
@@ -66,7 +66,7 @@ let
           };
           ```
 
-          If you need to reference the inputs managed by IOGX in your flake, you 
+          If you need to reference the inputs managed by IOGX in your flake, you
           may use this syntax:
 
           ```nix
@@ -78,7 +78,7 @@ let
           }
           ```
 
-          If you are using the `follows` syntax for some inputs, you can avoid 
+          If you are using the `follows` syntax for some inputs, you can avoid
           one level of indirection when referencing those inputs:
           ```nix
           { inputs, ... }:
@@ -89,19 +89,19 @@ let
           }
           ```
 
-          If you need to update IOGX (or any other input) you can do it the 
+          If you need to update IOGX (or any other input) you can do it the
           normal way:
 
           ```bash
-          nix flake lock --update-input iogx 
-          nix flake lock --update-input haskell-nix 
-          nix flake lock --update-input hackage 
-          nix flake lock --update-input CHaP 
+          nix flake lock --update-input iogx
+          nix flake lock --update-input haskell-nix
+          nix flake lock --update-input hackage
+          nix flake lock --update-input CHaP
           ```
         '';
         example = l.literalExpression ''
           # flake.nix inputs for Haskell Projects
-          { 
+          {
             inputs = {
               iogx = {
                 url = "github:input-output-hk/iogx";
@@ -129,11 +129,11 @@ let
           }
 
           # flake.nix inputs for Vanilla Projects
-          { 
+          {
             inputs = {
               iogx.url = "github:input-output-hk/iogx";
             };
-          }       
+          }
         '';
       };
 
@@ -173,14 +173,14 @@ let
         description = ''
           Unless you know what you are doing, you should not change `nixConfig`.
 
-          You could always add new `extra-substituters` and `extra-trusted-public-keys`, but do not delete the existing ones, or you won't have access to IOG caches. 
+          You could always add new `extra-substituters` and `extra-trusted-public-keys`, but do not delete the existing ones, or you won't have access to IOG caches.
 
           For the caches to work properly, it is sufficient that the following two lines be included in your `/etc/nix/nix.conf`:
           ```txt
           trusted-users = USER
           experimental-features = nix-command flakes
           ```
-          Replace `USER` with the result of running `whoami`. 
+          Replace `USER` with the result of running `whoami`.
 
           You may need to reload the nix daemon on Darwin for changes to `/etc/nix/nix.conf` to take effect:
           ```bash
@@ -192,8 +192,8 @@ let
           If Nix starts building `GHC` or other large artifacts that means that your caches have not been configured properly.
         '';
         example = l.literalExpression ''
-          # flake.nix 
-          { 
+          # flake.nix
+          {
             nixConfig = {
               extra-substituters = [
                 "https://cache.iog.io"

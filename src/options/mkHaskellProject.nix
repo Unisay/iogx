@@ -58,13 +58,13 @@ let
       siteFolder = l.mkOption {
         type = l.types.str;
         description = ''
-          A Nix string representing a path, relative to the repository root, to 
+          A Nix string representing a path, relative to the repository root, to
           your site folder containing the `conf.py` file.
         '';
         example = l.literalExpression ''
           # project.nix
           { repoRoot, inputs, pkgs, lib, system }:
-          
+
           lib.iogx.mkHaskellProject {
             readTheDocs.siteFolder = "./doc/read-the-docs-site";
           }
@@ -75,7 +75,7 @@ let
         type = l.types.nullOr l.types.package;
         default = null;
         description = ''
-          A python environment with the required packages to build your site 
+          A python environment with the required packages to build your site
           using sphinx.
 
           Normally you don't need to override this.
@@ -83,7 +83,7 @@ let
         example = l.literalExpression ''
           # project.nix
           { repoRoot, inputs, pkgs, lib, system }:
-          
+
           lib.iogx.mkHaskellProject {
             readTheDocs = {
               enable = true;
@@ -121,9 +121,9 @@ let
         type = l.types.attrs;
         default = { };
         description = ''
-          The original `cabalProject`. 
-          
-          You most likely want to get one using 
+          The original `cabalProject`.
+
+          You most likely want to get one using
           [`haskell.nix:cabalProject'`](https://input-output-hk.github.io/haskell.nix/reference/library.html?highlight=cabalProjec#cabalproject)
           like in the example above.
 
@@ -132,21 +132,21 @@ let
           The variants will be available in ${link "mkHaskellProject.<out>.variants"}.
         '';
         example = l.literalExpression ''
-          # nix/project.nix 
+          # nix/project.nix
           { repoRoot, inputs, lib, system, ... }:
 
           lib.iogx.mkHaskellProject {
             cabalProject = pkgs.haskell-nix.cabalProject' ({ pkgs, config, ...) {
-              name = "my-project"; 
+              name = "my-project";
               src = ./.; # Must contain the cabal.project file
               inputMap = {
                 "https://input-output-hk.github.io/cardano-haskell-packages" = inputs.CHaP;
               };
               compiler-nix-name = "ghc8107";
               flake.variants.profiled = {
-                modules = [{ 
-                  enableProfiling = true; 
-                  enableLibraryProfiling = true; 
+                modules = [{
+                  enableProfiling = true;
+                  enableLibraryProfiling = true;
                 }];
               };
               flake.variants.ghc928 = {
@@ -170,7 +170,7 @@ let
 
           This is a function that is called once with the original
           ${link "mkHaskellProject.<in>.cabalProject"} (coming from `haskell.nix`),
-          and then once for each project variant. 
+          and then once for each project variant.
 
           Internally these `shellArgs` are passed to ${link "mkShell"}.
 
@@ -184,16 +184,16 @@ let
         type = l.types.bool;
         default = false;
         example = l.literalExpression ''
-          # outputs.nix 
+          # outputs.nix
           { repoRoot, inputs, pkgs, lib, system }:
-          let 
+          let
             project = lib.iogx.mkHaskellProject {
               includeProfiledHydraJobs = true;
             };
-          in 
+          in
           [
             (
-              project.flake 
+              project.flake
               # ^^^^^ Includes: hydraJobs.profiled = project.variants.profiled.hydraJobs;
             )
           ]
@@ -201,19 +201,19 @@ let
         '';
         description = ''
           When set to `true` then ${link "mkHaskellProject.<out>.flake"} will include:
-          ```nix 
+          ```nix
           hydraJobs.profiled = project.variants.profiled.hydraJobs;
           ```
 
           This is just a convenience option, you can always reference the jobs directly:
           ```nix
-          # outputs.nix 
+          # outputs.nix
           { repoRoot, inputs, pkgs, lib, system }:
-          let 
+          let
             project = lib.iogx.mkHaskellProject {
               includeProfiledHydraJobs = false;
             };
-          in 
+          in
           [
             {
               hydraJobs.profiled = project.variants.profiled.hydraJobs;
@@ -230,16 +230,16 @@ let
         type = l.types.bool;
         default = false;
         example = l.literalExpression ''
-          # outputs.nix 
+          # outputs.nix
           { repoRoot, inputs, pkgs, lib, system }:
-          let 
+          let
             project = lib.iogx.mkHaskellProject {
               includeMingwW64HydraJobs = true;
             };
-          in 
+          in
           [
             (
-              project.flake 
+              project.flake
               # ^^^^^ Includes: hydraJobs.mingwW64 = project.cross.mingwW64.hydraJobs;
             )
           ]
@@ -247,19 +247,19 @@ let
         '';
         description = ''
           When set to `true` then ${link "mkHaskellProject.<out>.flake"} will include:
-          ```nix 
+          ```nix
           hydraJobs.mingwW66 = project.cross.mingwW64.hydraJobs
           ```
 
           This is just a convenience option, you can always reference the jobs directly:
           ```nix
-          # outputs.nix 
+          # outputs.nix
           { repoRoot, inputs, pkgs, lib, system }:
-          let 
+          let
             project = lib.iogx.mkHaskellProject {
               includeMingwW64HydraJobs = false;
             };
-          in 
+          in
           [
             {
               hydraJobs.mingwW64 = project.cross.mingwW64.hydraJobs;
@@ -284,9 +284,9 @@ let
           - ${link "mkHaskellProject.<out>.variants.<name>.combined-haddock"}
         '';
         example = l.literalExpression ''
-          # outputs.nix 
+          # outputs.nix
           { repoRoot, inputs, pkgs, lib, system }:
-          let 
+          let
             project = lib.iogx.mkHaskellProject {
               combinedHaddock = {
                 enable = system == "x86_64-linux";
@@ -294,7 +294,7 @@ let
                 prologue = "This is the prologue.";
               };
             };
-          in 
+          in
           [
             {
               packages.combined-haddock = project.combined-haddock;
@@ -307,12 +307,12 @@ let
         type = read-the-docs-submodule;
         default = default-read-the-docs;
         description = ''
-          Configuration for your [`read-the-docs`](https://readthedocs.org) site. 
+          Configuration for your [`read-the-docs`](https://readthedocs.org) site.
 
           If no site is required, this option can be omitted.
 
-          The shells generated by ${link "mkHaskellProject.<in>.shellArgs"} will be 
-          augmented with several scripts to make developing your site easier, 
+          The shells generated by ${link "mkHaskellProject.<in>.shellArgs"} will be
+          augmented with several scripts to make developing your site easier,
           grouped under the tag `read-the-docs`.
 
           The Read The Docs site derivation(s) will be available in:
@@ -320,13 +320,13 @@ let
           - ${link "mkHaskellProject.<out>.variants.<name>.read-the-docs-site"}
         '';
         example = l.literalExpression ''
-          # outputs.nix 
+          # outputs.nix
           { repoRoot, inputs, pkgs, lib, system }:
-          let 
+          let
             project = lib.iogx.mkHaskellProject {
               readTheDocs.siteFolder = "doc/read-the-docs-site";
             };
-          in 
+          in
           [
             {
               inherit (proejct) cabalProject;
@@ -352,7 +352,7 @@ let
 
           It contains all the derivations for your project, but does not include project variants.
 
-          If you set ${link "mkHaskellProject.<in>.includeMingwW64HydraJobs"} to `true`, then 
+          If you set ${link "mkHaskellProject.<in>.includeMingwW64HydraJobs"} to `true`, then
           this attrset will also include `hydraJobs.mingwW64`.
 
           This also automatically adds the `hydraJobs.required` job using ${link "mkHydraRequiredJob"}.
@@ -369,24 +369,24 @@ let
           - `checks.*` = ${link "mkHaskellProject.<out>.checks"}
           - `hydraJobs.*` = ${link "mkHaskellProject.<out>.hydraJobs"}
           - `hydraJobs.combined-haddock` = ${link "mkHaskellProject.<out>.combined-haddock"}
-          - `hydraJobs.read-the-docs-site` = ${link "mkHaskellProject.<out>.read-the-docs-site"} 
-          - `hydraJobs.pre-commit-check` = ${link "mkHaskellProject.<out>.pre-commit-check"} 
+          - `hydraJobs.read-the-docs-site` = ${link "mkHaskellProject.<out>.read-the-docs-site"}
+          - `hydraJobs.pre-commit-check` = ${link "mkHaskellProject.<out>.pre-commit-check"}
           - `hydraJobs.mingwW64` = ${link "mkHaskellProject.<out>.cross.mingwW64.hydraJobs"} (conditionally)
           - `hydraJobs.required` = ${link "mkHydraRequiredJob"}
         '';
         example = l.literalExpression ''
-          # flake.nix 
+          # flake.nix
           {
             outputs = inputs: inputs.iogx.lib.mkFlake {
               outputs = import ./outputs.nix;
             };
           }
 
-          # outputs.nix 
+          # outputs.nix
           { repoRoot, inputs, pkgs, lib, system }:
-          let 
+          let
             project = lib.iogx.mkHaskellProject {};
-          in 
+          in
           [
             (
               project.flake
@@ -477,7 +477,7 @@ let
       variants = l.mkOption {
         type = l.types.attrs;
         description = ''
-          This attribute contains the variants for your project, 
+          This attribute contains the variants for your project,
           as defined in your ${link "mkHaskellProject.<in>.cabalProject"}`.flake.variants`.
 
           Each variant has exaclty the same attributes as the main project.
@@ -485,18 +485,18 @@ let
           See the example above for more information.
         '';
         example = l.literalExpression ''
-          # outputs.nix 
+          # outputs.nix
           { repoRoot, inputs, pkgs, lib, system }:
-          let 
+          let
             project = lib.iogx.mkHaskellProject {
               cabalProject = pkgs.haskell-nix.cabalProject' {
                 flake.variants.ghc928 = {};
                 flake.variants.profiled = {};
               };
             };
-          in 
+          in
           [
-            { 
+            {
               hydraJobs.normal = project.hydraJobs;
               hydraJobs.profiled = project.variants.profiled.hydraJobs;
               hydraJobs.ghc928 = project.variants.ghc928.hydraJobs;
@@ -506,7 +506,7 @@ let
               packages.read-the-docs-ghc928 = project.variants.ghc928.read-the-docs-site;
 
               hydraJobs.ghc928-mingwW64 = project.variants.ghc928.cross.mingwW64.hydraJobs;
-            } 
+            }
           ]
         '';
       };
@@ -516,24 +516,24 @@ let
         description = ''
           This attribute contains cross-compilation variants for your project.
 
-          Each variant only has two attributes: 
+          Each variant only has two attributes:
           - `cabalProject` the original project coming from `haskell.nix`'s `.projectCross.<name>`
           - `hydraJobs` that can be included directly in your flake outputs
         '';
         example = l.literalExpression ''
-          # outputs.nix 
+          # outputs.nix
           { repoRoot, inputs, pkgs, lib, system }:
-          let 
+          let
             project = lib.iogx.mkHaskellProject {};
-          in 
+          in
           [
-            { 
+            {
               projectMingwW64 = project.cross.mingwW64.cabalProject;
               projectMusl64 = project.cross.musl64.cabalProject;
 
               hydraJobs.mingwW64 = project.cross.mingwW64.hydraJobs;
               hydraJobs.musl64 = project.cross.musl64.hydraJobs;
-            } 
+            }
           ]
         '';
       };
@@ -567,7 +567,7 @@ let
     '';
     type = utils.mkApiFuncOptionType mkHaskellProject-IN.type mkHaskellProject-OUT.type;
     example = l.literalExpression ''
-      # nix/project.nix 
+      # nix/project.nix
       { repoRoot, inputs, pkgs, lib, system }:
       lib.iogx.mkHaskellProject {
 
@@ -577,9 +577,9 @@ let
           enable = true;
           siteFolder = "doc/read-the-docs-site";
         };
-        
+
         combinedHaddock.enable = true;
-        
+
         cabalProject = pkgs.haskell-nix.cabalProject' {
           compiler-nix-name = "ghc8107";
 
@@ -591,9 +591,9 @@ let
 
       # outputs.nix
       { repoRoot, inputs, pkgs, lib, system }:
-      let 
+      let
         project = repoRoot.nix.project;
-      in 
+      in
       [
         {
           inherit (project) cabalProject;

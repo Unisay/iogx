@@ -2,7 +2,7 @@
 
 let
 
-  testsuite = [];
+  testsuite = [ ];
 
 
   main = pkgs.writeScript "testsuite" ''
@@ -11,5 +11,4 @@ let
 
 in
 
-  main 
-
+main

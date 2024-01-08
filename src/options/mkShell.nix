@@ -26,13 +26,13 @@ let
 
           If `false`, the hook will not be installed.
 
-          If `true`, the hook will become available in the shell: 
-          ```bash 
+          If `true`, the hook will become available in the shell:
+          ```bash
           pre-commit run <hook-name>
           ```
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             preCommit = {
@@ -55,7 +55,7 @@ let
           In general you don't want to override this, especially for the Haskell tools, because the default package will be the one that matches the compiler used by your project.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             preCommit = {
@@ -73,11 +73,11 @@ let
           Extra command line options to be passed to the hook.
 
           Each hooks knows how run itself, and will be called with the correct command line arguments.
-          
+
           However you can *append* additional options to a tool's command by setting this field.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             preCommit = {
@@ -100,21 +100,21 @@ let
         type = l.types.nullOr l.types.str;
         description = ''
           The haskell compiler version.
-          
+
           Any value that is accepected by `haskell.nix:compiler-nix-name` is valid, e.g: `ghc8107`, `ghc92`, `ghc963`.
-          
+
           This determines the version of other tools like `cabal-install` and `haskell-language-server`.
 
           If this option is unset of null, then no Haskell tools will be made available in the shell.
 
-          However if you enable some Haskell-specific ${link "mkShell.<in>.preCommit"} hooks, then 
+          However if you enable some Haskell-specific ${link "mkShell.<in>.preCommit"} hooks, then
           that Haskell tool will be installed automatically using `ghc8107` as the default compiler version.
 
-          When using ${link "mkHaskellProject.<in>.shellArgs"}, this option is automatically set to 
+          When using ${link "mkHaskellProject.<in>.shellArgs"}, this option is automatically set to
           the same value as the project's (or project variant's) `compiler-nix-name`.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.haskellCompilerVersion = "ghc8107";
@@ -132,7 +132,7 @@ let
           If unset or `null`, a default `cabal-fmt` will be provided, which is independent of ${link "mkShell.<in>.tools.haskellCompilerVersion"}.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.cabal-fmt = repoRoot.nix.patched-cabal-fmt;
@@ -149,7 +149,7 @@ let
           If unset or `null`, ${link "mkShell.<in>.tools.haskellCompilerVersion"} will be used to select a suitable derivation.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.cabal-install = repoRoot.nix.patched-cabal-install;
@@ -166,7 +166,7 @@ let
           If unset or `null`, ${link "mkShell.<in>.tools.haskellCompilerVersion"} will be used to select a suitable derivation.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.haskell-language-server = repoRoot.nix.patched-haskell-language-server;
@@ -183,7 +183,7 @@ let
           If unset or `null`, ${link "mkShell.<in>.tools.haskellCompilerVersion"} will be used to select a suitable derivation.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.haskell-language-server-wrapper = repoRoot.nix.pathced-haskell-language-server-wrapper;
@@ -200,7 +200,7 @@ let
           If unset or `null`, a default `fourmolu` will be provided, which is independent of ${link "mkShell.<in>.tools.haskellCompilerVersion"}.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.fourmolu = repoRoot.nix.patched-fourmolu;
@@ -217,7 +217,7 @@ let
           If unset or `null`, ${link "mkShell.<in>.tools.haskellCompilerVersion"} will be used to select a suitable derivation.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.hlint = repoRoot.nix.patched-hlint;
@@ -234,7 +234,7 @@ let
           If unset or `null`, ${link "mkShell.<in>.tools.haskellCompilerVersion"} will be used to select a suitable derivation.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.stylish-haskell = repoRoot.nix.patched-stylish-haskell;
@@ -251,7 +251,7 @@ let
           If unset or `null`, ${link "mkShell.<in>.tools.haskellCompilerVersion"} will be used to select a suitable derivation.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.ghcid = repoRoot.nix.patched-ghcid;
@@ -268,7 +268,7 @@ let
           If unset or `null`, the most recent version available will be used.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.shellcheck = repoRoot.nix.patched-shellcheck;
@@ -285,7 +285,7 @@ let
           If unset or `null`, the most recent version available will be used.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.prettier = repoRoot.nix.patched-prettier;
@@ -302,7 +302,7 @@ let
           If unset or `null`, the most recent version available will be used.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.editorconfig-checker = repoRoot.nix.patched-editorconfig-checker;
@@ -319,7 +319,7 @@ let
           If unset or `null`, the most recent version available will be used.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.nixpkgs-fmt = repoRoot.nix.patched-nixpkgs-fmt;
@@ -336,7 +336,7 @@ let
           If unset or `null`, the most recent version available will be used.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.optipng = repoRoot.nix.patched-optipng;
@@ -353,7 +353,7 @@ let
           If unset or `null`, the most recent version available will be used.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             tools.purs-tidy = repoRoot.nix.patched-purs-tidy;
@@ -459,7 +459,7 @@ let
           This field is required.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             scripts = {
@@ -480,7 +480,7 @@ let
           A string that will appear next to the script name when printed.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             scripts = {
@@ -499,10 +499,10 @@ let
         description = ''
           A string to tag the script.
 
-          This will be used to group scripts together so that they look prettier and more organized when listed. 
+          This will be used to group scripts together so that they look prettier and more organized when listed.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             scripts = {
@@ -524,7 +524,7 @@ let
           This can be used to include scripts conditionally.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
           lib.iogx.mkShell {
             scripts = {
@@ -557,7 +557,7 @@ let
         type = l.types.nullOr l.types.str;
         default = null;
         description = ''
-          Terminal prompt, i.e. the value of the `PS1` environment variable. 
+          Terminal prompt, i.e. the value of the `PS1` environment variable.
 
           You can use ANSI color escape sequences to customize your prompt, but you'll need to double-escape the left slashes because `prompt` is a nix string that will be embedded in a bash string.
 
@@ -589,16 +589,16 @@ let
         type = l.types.listOf l.types.package;
         default = [ ];
         description = ''
-          You can add anything you want here, so long as it's a derivation with executables in the `/bin` folder. 
+          You can add anything you want here, so long as it's a derivation with executables in the `/bin` folder.
 
           What you put here ends up in your `$PATH` (basically the `buildInputs` in `mkDerivation`).
 
           For example:
           ```nix
           packages = [
-            pkgs.hello 
-            pkgs.curl 
-            pkgs.sqlite3 
+            pkgs.hello
+            pkgs.curl
+            pkgs.sqlite3
             pkgs.nodePackages.yo
           ]
           ```
@@ -611,7 +611,7 @@ let
           ];
           ```
 
-          Be careful not to reference your project's own cabal packages via `hsPkgs`. 
+          Be careful not to reference your project's own cabal packages via `hsPkgs`.
 
           If you do, then `nix develop` will build your project every time you enter the shell, and it will fail to do so if there are Haskell compiler errors.
         '';
@@ -653,11 +653,11 @@ let
         type = l.types.lazyAttrsOf l.types.raw;
         default = { };
         description = ''
-          Custom environment variables. 
+          Custom environment variables.
 
           Considering the example above, the following bash code will be executed every time you enter the shell:
 
-          ```bash 
+          ```bash
           export PGUSER="postgres"
           export THE_ANSWER="42"
           ```
@@ -712,7 +712,7 @@ let
 
           When enabled, some hooks expect to find a configuration file in the root of the repository:
 
-          | Hook Name | Config File | 
+          | Hook Name | Config File |
           | --------- | ----------- |
           | `stylish-haskell` | `.stylish-haskell.yaml` |
           | `editorconfig-checker` | `.editorconfig` |
@@ -725,7 +725,7 @@ let
           Each tool knows which file extensions to look for, which files to ignore, and how to modify the files in-place.
         '';
         example = l.literalExpression ''
-          # shell.nix 
+          # shell.nix
           { repoRoot, inputs, pkgs, lib, system }:
 
           lib.iogx.mkShell {
@@ -774,7 +774,7 @@ let
           { repoRoot, inputs, pkgs, lib, system }:
           let
             shell = lib.iogx.mkShell {};
-          in 
+          in
           [
             {
               devShells.foo = shell;

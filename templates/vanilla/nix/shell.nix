@@ -57,4 +57,3 @@ lib.iogx.mkShell {
   #   purs-tidy.extraOptions = "";
   # };
 }
- 

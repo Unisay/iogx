@@ -1,2 +1,1 @@
-module Lib1 where 
-
+module Lib1 where

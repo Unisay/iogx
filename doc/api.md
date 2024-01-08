@@ -1,11 +1,11 @@
 
-# API Reference 
+# API Reference
 
-1. [`./flake.nix`](#flakenix) 
+1. [`./flake.nix`](#flakenix)
     - Top-level `flake.nix` file.
-2. [`inputs.iogx.lib.mkFlake`](#mkflake) 
+2. [`inputs.iogx.lib.mkFlake`](#mkflake)
     - Makes your flake outputs.
-3. [`pkgs.lib.iogx.mkHaskellProject`](#mkhaskellproject) 
+3. [`pkgs.lib.iogx.mkHaskellProject`](#mkhaskellproject)
     - Makes a [`haskell.nix`](https://github.com/input-output-hk/haskell.nix) project.
 4. [`pkgs.lib.iogx.mkShell`](#mkshell)
     - Makes a `devShell` with `pre-commit-check` and tools.
@@ -47,20 +47,20 @@ Below is a description of each of its attributes.
 
 **Example**: 
 ```nix
-# flake.nix 
-{ 
+# flake.nix
+{
   description = "My Haskell Project";
 }
 
 ```
 
 
-Arbitrary description for the flake. 
+Arbitrary description for the flake.
 
-This string is displayed when running `nix flake info` and other flake 
-commands. 
+This string is displayed when running `nix flake info` and other flake
+commands.
 
-It can be a short title for your project. 
+It can be a short title for your project.
 
 
 ---
@@ -74,7 +74,7 @@ It can be a short title for your project.
 **Example**: 
 ```nix
 # flake.nix inputs for Haskell Projects
-{ 
+{
   inputs = {
     iogx = {
       url = "github:input-output-hk/iogx";
@@ -102,38 +102,38 @@ It can be a short title for your project.
 }
 
 # flake.nix inputs for Vanilla Projects
-{ 
+{
   inputs = {
     iogx.url = "github:input-output-hk/iogx";
   };
-}       
+}
 
 ```
 
 
-Your flake *must* define `iogx` among its inputs. 
+Your flake *must* define `iogx` among its inputs.
 
-In turn, IOGX manages the following inputs for you: 
-[CHaP](https://github.com/input-output-hk/cardano-haskell-packages), 
-[haskell.nix](https://github.com/input-output-hk/haskell.nix), 
-[nixpkgs](https://github.com/NixOS/nixpkgs), 
-[hackage.nix](https://github.com/input-output-hk/hackage.nix), 
-[iohk-nix](https://github.com/input-output-hk/iohk-nix), 
-[sphinxcontrib-haddock](https://github.com/michaelpj/sphinxcontrib-haddock), 
-[pre-commit-hooks-nix](https://github.com/cachix/pre-commit-hooks.nix), 
-[haskell-language-server](https://github.com/haskell/haskell-language-server), 
-[easy-purescript-nix](https://github.com/justinwoo/easy-purescript-nix). 
+In turn, IOGX manages the following inputs for you:
+[CHaP](https://github.com/input-output-hk/cardano-haskell-packages),
+[haskell.nix](https://github.com/input-output-hk/haskell.nix),
+[nixpkgs](https://github.com/NixOS/nixpkgs),
+[hackage.nix](https://github.com/input-output-hk/hackage.nix),
+[iohk-nix](https://github.com/input-output-hk/iohk-nix),
+[sphinxcontrib-haddock](https://github.com/michaelpj/sphinxcontrib-haddock),
+[pre-commit-hooks-nix](https://github.com/cachix/pre-commit-hooks.nix),
+[haskell-language-server](https://github.com/haskell/haskell-language-server),
+[easy-purescript-nix](https://github.com/justinwoo/easy-purescript-nix).
 
-If you find that you want to use a different version of some of the 
-implicit inputs listed above, for instance because IOGX has not been 
-updated, or because you need to test against a specific branch, you 
+If you find that you want to use a different version of some of the
+implicit inputs listed above, for instance because IOGX has not been
+updated, or because you need to test against a specific branch, you
 can use the `follows` syntax like in the example above.
 
-Note that the Haskell template `flake.nix` does this by default with 
+Note that the Haskell template `flake.nix` does this by default with
 `CHaP`, `hackage.nix` and `haskell.nix`.
 
-It is of course possible to add other inputs (not already managed by 
-IOGX) in the normal way. 
+It is of course possible to add other inputs (not already managed by
+IOGX) in the normal way.
 
 For example, to add `nix2container` and `cardano-world`:
 
@@ -145,7 +145,7 @@ inputs = {
 };
 ```
 
-If you need to reference the inputs managed by IOGX in your flake, you 
+If you need to reference the inputs managed by IOGX in your flake, you
 may use this syntax:
 
 ```nix
@@ -157,7 +157,7 @@ may use this syntax:
 }
 ```
 
-If you are using the `follows` syntax for some inputs, you can avoid 
+If you are using the `follows` syntax for some inputs, you can avoid
 one level of indirection when referencing those inputs:
 ```nix
 { inputs, ... }:
@@ -168,14 +168,14 @@ one level of indirection when referencing those inputs:
 }
 ```
 
-If you need to update IOGX (or any other input) you can do it the 
+If you need to update IOGX (or any other input) you can do it the
 normal way:
 
 ```bash
-nix flake lock --update-input iogx 
-nix flake lock --update-input haskell-nix 
-nix flake lock --update-input hackage 
-nix flake lock --update-input CHaP 
+nix flake lock --update-input iogx
+nix flake lock --update-input haskell-nix
+nix flake lock --update-input hackage
+nix flake lock --update-input CHaP
 ```
 
 
@@ -189,8 +189,8 @@ nix flake lock --update-input CHaP
 
 **Example**: 
 ```nix
-# flake.nix 
-{ 
+# flake.nix
+{
   nixConfig = {
     extra-substituters = [
       "https://cache.iog.io"
@@ -207,14 +207,14 @@ nix flake lock --update-input CHaP
 
 Unless you know what you are doing, you should not change `nixConfig`.
 
-You could always add new `extra-substituters` and `extra-trusted-public-keys`, but do not delete the existing ones, or you won't have access to IOG caches. 
+You could always add new `extra-substituters` and `extra-trusted-public-keys`, but do not delete the existing ones, or you won't have access to IOG caches.
 
 For the caches to work properly, it is sufficient that the following two lines be included in your `/etc/nix/nix.conf`:
 ```txt
 trusted-users = USER
 experimental-features = nix-command flakes
 ```
-Replace `USER` with the result of running `whoami`. 
+Replace `USER` with the result of running `whoami`.
 
 You may need to reload the nix daemon on Darwin for changes to `/etc/nix/nix.conf` to take effect:
 ```bash
@@ -547,9 +547,9 @@ You almost certainly want to do `inherit inputs;` here (see the example in [`mkF
 
 **Default**: 
 ```nix
-{ 
-  config = { }; 
-  overlays = [ ]; 
+{
+  config = { };
+  overlays = [ ];
 }
 
 ```
@@ -560,8 +560,8 @@ You almost certainly want to do `inherit inputs;` here (see the example in [`mkF
 # flake.nix
 {
   outputs = inputs: inputs.iogx.lib.mkFlake {
-    nixpkgsArgs.overlays = [(self: super: { 
-      acme = super.callPackage ./nix/acme.nix { }; 
+    nixpkgsArgs.overlays = [(self: super: {
+      acme = super.callPackage ./nix/acme.nix { };
     })];
     nixpkgsArgs.config.permittedInsecurePackages [
       "python-2.7.18.6"
@@ -587,7 +587,7 @@ Using `nixpkgsArgs` you can provide an additional `config` attrset and a list of
 
 **Example**: 
 ```nix
-# flake.nix 
+# flake.nix
 {
   outputs = inputs: inputs.iogx.lib.mkFlake {
     outputs = import ./outputs.nix;
@@ -618,7 +618,7 @@ This is the most important option as it will determine your flake outputs.
 
 `outputs` receives an attrset and must return a list of attrsets.
 
-The returned attrsets are recursively merged top-to-bottom. 
+The returned attrsets are recursively merged top-to-bottom.
 
 Each of the input attributes to the `outputs` function is documented below.
 
@@ -632,17 +632,17 @@ Its value is set to the path of [`mkFlake.<in>.repoRoot`](#mkflakeinreporoot).
 
 For example, if this is your top-level repository folder:
 ```
-* src 
-  - Main.hs 
-- cabal.project 
+* src
+  - Main.hs
+- cabal.project
 * nix
   - outputs.nix
   - alpha.nix
   * bravo
-    - charlie.nix 
+    - charlie.nix
     - india.nix
     - hotel.json
-    * delta 
+    * delta
       - echo.nix
       - golf.txt
 ```
@@ -669,16 +669,16 @@ lib.someFunction arg1 arg2 repoRoot.nix.bravo.delta."golf.txt"
 
 # ./nix/per-system-outputs.nix
 { repoRoot, inputs, pkgs, system, lib, ... }:
-{ 
-  packages.example = 
-    let 
+{
+  packages.example =
+    let
       a = repoRoot.nix.alpha;
       c = repoRoot.nix.bravo.charlie;
       e = repoRoot.nix.bravo.delta.echo "arg1" {};
       f = repoRoot.nix.bravo.delta."golf.txt";
       g = repoRoot.src."Main.hs";
     in
-      42; 
+      42;
 }
 ```
 
@@ -703,14 +703,14 @@ inputs.self.packages.foo
 ```
 
 In addition to the usual syntax which mentions `system` explicitely.
-```nix 
+```nix
 inputs.n2c.packages.x86_64-linux.nix2container
 inputs.self.packages.x86_64-darwin.foo
 ```
 
 #### `pkgs`
 
-A `nixpkgs` instantiated against the current system (as found in `pkgs.stdenv.system`), for each of your [`mkFlake.<in>.systems`](#mkflakeinsystems), and overlaid with goodies from `haskell.nix` and `iohk-nix`. 
+A `nixpkgs` instantiated against the current system (as found in `pkgs.stdenv.system`), for each of your [`mkFlake.<in>.systems`](#mkflakeinsystems), and overlaid with goodies from `haskell.nix` and `iohk-nix`.
 
 A `nixpkgs` is also available at `inputs.nixpkgs.legacyPackages` but that should *not* be used because it doesn't have the required overlays.
 
@@ -724,8 +724,8 @@ This is just `pkgs.stdenv.system`, which is likely to be used often.
 
 This is just `pkgs.lib` plus the `iogx` attrset, which contains library functions and utilities.
 
-In here you will find the following: 
-```nix 
+In here you will find the following:
+```nix
 lib.iogx.mkShell {}
 lib.iogx.mkHaskellProject {}
 lib.iogx.mkHydraRequiredJob {}
@@ -773,7 +773,7 @@ The [`mkFlake.<in>.outputs`](#mkflakeinoutputs) function will be called once for
 
 **Example**: 
 ```nix
-# nix/project.nix 
+# nix/project.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkHaskellProject {
 
@@ -783,9 +783,9 @@ lib.iogx.mkHaskellProject {
     enable = true;
     siteFolder = "doc/read-the-docs-site";
   };
-  
+
   combinedHaddock.enable = true;
-  
+
   cabalProject = pkgs.haskell-nix.cabalProject' {
     compiler-nix-name = "ghc8107";
 
@@ -797,9 +797,9 @@ lib.iogx.mkHaskellProject {
 
 # outputs.nix
 { repoRoot, inputs, pkgs, lib, system }:
-let 
+let
   project = repoRoot.nix.project;
-in 
+in
 [
   {
     inherit (project) cabalProject;
@@ -833,21 +833,21 @@ In this document:
 
 **Example**: 
 ```nix
-# nix/project.nix 
+# nix/project.nix
 { repoRoot, inputs, lib, system, ... }:
 
 lib.iogx.mkHaskellProject {
   cabalProject = pkgs.haskell-nix.cabalProject' ({ pkgs, config, ...) {
-    name = "my-project"; 
+    name = "my-project";
     src = ./.; # Must contain the cabal.project file
     inputMap = {
       "https://input-output-hk.github.io/cardano-haskell-packages" = inputs.CHaP;
     };
     compiler-nix-name = "ghc8107";
     flake.variants.profiled = {
-      modules = [{ 
-        enableProfiling = true; 
-        enableLibraryProfiling = true; 
+      modules = [{
+        enableProfiling = true;
+        enableLibraryProfiling = true;
       }];
     };
     flake.variants.ghc928 = {
@@ -861,9 +861,9 @@ lib.iogx.mkHaskellProject {
 ```
 
 
-The original `cabalProject`. 
+The original `cabalProject`.
 
-You most likely want to get one using 
+You most likely want to get one using
 [`haskell.nix:cabalProject'`](https://input-output-hk.github.io/haskell.nix/reference/library.html?highlight=cabalProjec#cabalproject)
 like in the example above.
 
@@ -890,9 +890,9 @@ The variants will be available in [`mkHaskellProject.<out>.variants`](#mkhaskell
 
 **Example**: 
 ```nix
-# outputs.nix 
+# outputs.nix
 { repoRoot, inputs, pkgs, lib, system }:
-let 
+let
   project = lib.iogx.mkHaskellProject {
     combinedHaddock = {
       enable = system == "x86_64-linux";
@@ -900,7 +900,7 @@ let
       prologue = "This is the prologue.";
     };
   };
-in 
+in
 [
   {
     packages.combined-haddock = project.combined-haddock;
@@ -974,16 +974,16 @@ A string acting as prologue for the combined Haddock.
 
 **Example**: 
 ```nix
-# outputs.nix 
+# outputs.nix
 { repoRoot, inputs, pkgs, lib, system }:
-let 
+let
   project = lib.iogx.mkHaskellProject {
     includeMingwW64HydraJobs = true;
   };
-in 
+in
 [
   (
-    project.flake 
+    project.flake
     # ^^^^^ Includes: hydraJobs.mingwW64 = project.cross.mingwW64.hydraJobs;
   )
 ]
@@ -993,19 +993,19 @@ in
 
 
 When set to `true` then [`mkHaskellProject.<out>.flake`](#mkhaskellprojectoutflake) will include:
-```nix 
+```nix
 hydraJobs.mingwW66 = project.cross.mingwW64.hydraJobs
 ```
 
 This is just a convenience option, you can always reference the jobs directly:
 ```nix
-# outputs.nix 
+# outputs.nix
 { repoRoot, inputs, pkgs, lib, system }:
-let 
+let
   project = lib.iogx.mkHaskellProject {
     includeMingwW64HydraJobs = false;
   };
-in 
+in
 [
   {
     hydraJobs.mingwW64 = project.cross.mingwW64.hydraJobs;
@@ -1025,16 +1025,16 @@ in
 
 **Example**: 
 ```nix
-# outputs.nix 
+# outputs.nix
 { repoRoot, inputs, pkgs, lib, system }:
-let 
+let
   project = lib.iogx.mkHaskellProject {
     includeProfiledHydraJobs = true;
   };
-in 
+in
 [
   (
-    project.flake 
+    project.flake
     # ^^^^^ Includes: hydraJobs.profiled = project.variants.profiled.hydraJobs;
   )
 ]
@@ -1044,19 +1044,19 @@ in
 
 
 When set to `true` then [`mkHaskellProject.<out>.flake`](#mkhaskellprojectoutflake) will include:
-```nix 
+```nix
 hydraJobs.profiled = project.variants.profiled.hydraJobs;
 ```
 
 This is just a convenience option, you can always reference the jobs directly:
 ```nix
-# outputs.nix 
+# outputs.nix
 { repoRoot, inputs, pkgs, lib, system }:
-let 
+let
   project = lib.iogx.mkHaskellProject {
     includeProfiledHydraJobs = false;
   };
-in 
+in
 [
   {
     hydraJobs.profiled = project.variants.profiled.hydraJobs;
@@ -1086,13 +1086,13 @@ haskell.nix `cabalProject` (see the example above).
 
 **Example**: 
 ```nix
-# outputs.nix 
+# outputs.nix
 { repoRoot, inputs, pkgs, lib, system }:
-let 
+let
   project = lib.iogx.mkHaskellProject {
     readTheDocs.siteFolder = "doc/read-the-docs-site";
   };
-in 
+in
 [
   {
     inherit (proejct) cabalProject;
@@ -1105,12 +1105,12 @@ in
 ```
 
 
-Configuration for your [`read-the-docs`](https://readthedocs.org) site. 
+Configuration for your [`read-the-docs`](https://readthedocs.org) site.
 
 If no site is required, this option can be omitted.
 
-The shells generated by [`mkHaskellProject.<in>.shellArgs`](#mkhaskellprojectinshellargs) will be 
-augmented with several scripts to make developing your site easier, 
+The shells generated by [`mkHaskellProject.<in>.shellArgs`](#mkhaskellprojectinshellargs) will be
+augmented with several scripts to make developing your site easier,
 grouped under the tag `read-the-docs`.
 
 The Read The Docs site derivation(s) will be available in:
@@ -1152,7 +1152,7 @@ lib.iogx.mkHaskellProject {
 ```
 
 
-A Nix string representing a path, relative to the repository root, to 
+A Nix string representing a path, relative to the repository root, to
 your site folder containing the `conf.py` file.
 
 
@@ -1192,7 +1192,7 @@ lib.iogx.mkHaskellProject {
 ```
 
 
-A python environment with the required packages to build your site 
+A python environment with the required packages to build your site
 using sphinx.
 
 Normally you don't need to override this.
@@ -1213,7 +1213,7 @@ Arguments for [`mkShell`](#mkshell).
 
 This is a function that is called once with the original
 [`mkHaskellProject.<in>.cabalProject`](#mkhaskellprojectincabalproject) (coming from `haskell.nix`),
-and then once for each project variant. 
+and then once for each project variant.
 
 Internally these `shellArgs` are passed to [`mkShell`](#mkshell).
 
@@ -1281,19 +1281,19 @@ The derivation for your [`mkHaskellProject.<in>.combinedHaddock`](#mkhaskellproj
 
 **Example**: 
 ```nix
-# outputs.nix 
+# outputs.nix
 { repoRoot, inputs, pkgs, lib, system }:
-let 
+let
   project = lib.iogx.mkHaskellProject {};
-in 
+in
 [
-  { 
+  {
     projectMingwW64 = project.cross.mingwW64.cabalProject;
     projectMusl64 = project.cross.musl64.cabalProject;
 
     hydraJobs.mingwW64 = project.cross.mingwW64.hydraJobs;
     hydraJobs.musl64 = project.cross.musl64.hydraJobs;
-  } 
+  }
 ]
 
 ```
@@ -1301,7 +1301,7 @@ in
 
 This attribute contains cross-compilation variants for your project.
 
-Each variant only has two attributes: 
+Each variant only has two attributes:
 - `cabalProject` the original project coming from `haskell.nix`'s `.projectCross.<name>`
 - `hydraJobs` that can be included directly in your flake outputs
 
@@ -1329,18 +1329,18 @@ The `devShell` as provided by your implementation of [`mkHaskellProject.<in>.she
 
 **Example**: 
 ```nix
-# flake.nix 
+# flake.nix
 {
   outputs = inputs: inputs.iogx.lib.mkFlake {
     outputs = import ./outputs.nix;
   };
 }
 
-# outputs.nix 
+# outputs.nix
 { repoRoot, inputs, pkgs, lib, system }:
-let 
+let
   project = lib.iogx.mkHaskellProject {};
-in 
+in
 [
   (
     project.flake
@@ -1356,7 +1356,7 @@ For simple Haskell projects with no flake variants, this is all you need.
 
 It contains all the derivations for your project, but does not include project variants.
 
-If you set [`mkHaskellProject.<in>.includeMingwW64HydraJobs`](#mkhaskellprojectinincludemingww64hydrajobs) to `true`, then 
+If you set [`mkHaskellProject.<in>.includeMingwW64HydraJobs`](#mkhaskellprojectinincludemingww64hydrajobs) to `true`, then
 this attrset will also include `hydraJobs.mingwW64`.
 
 This also automatically adds the `hydraJobs.required` job using [`mkHydraRequiredJob`](#mkhydrarequiredjob).
@@ -1373,8 +1373,8 @@ Below is a list of all its attributes:
 - `checks.*` = [`mkHaskellProject.<out>.checks`](#mkhaskellprojectoutchecks)
 - `hydraJobs.*` = [`mkHaskellProject.<out>.hydraJobs`](#mkhaskellprojectouthydrajobs)
 - `hydraJobs.combined-haddock` = [`mkHaskellProject.<out>.combined-haddock`](#mkhaskellprojectoutcombined-haddock)
-- `hydraJobs.read-the-docs-site` = [`mkHaskellProject.<out>.read-the-docs-site`](#mkhaskellprojectoutread-the-docs-site) 
-- `hydraJobs.pre-commit-check` = [`mkHaskellProject.<out>.pre-commit-check`](#mkhaskellprojectoutpre-commit-check) 
+- `hydraJobs.read-the-docs-site` = [`mkHaskellProject.<out>.read-the-docs-site`](#mkhaskellprojectoutread-the-docs-site)
+- `hydraJobs.pre-commit-check` = [`mkHaskellProject.<out>.pre-commit-check`](#mkhaskellprojectoutpre-commit-check)
 - `hydraJobs.mingwW64` = [`mkHaskellProject.<out>.cross.mingwW64.hydraJobs`](#mkhaskellprojectoutcrossmingww64hydrajobs) (conditionally)
 - `hydraJobs.required` = [`mkHydraRequiredJob`](#mkhydrarequiredjob)
 
@@ -1454,18 +1454,18 @@ The derivation for your [`mkHaskellProject.<in>.readTheDocs`](#mkhaskellprojecti
 
 **Example**: 
 ```nix
-# outputs.nix 
+# outputs.nix
 { repoRoot, inputs, pkgs, lib, system }:
-let 
+let
   project = lib.iogx.mkHaskellProject {
     cabalProject = pkgs.haskell-nix.cabalProject' {
       flake.variants.ghc928 = {};
       flake.variants.profiled = {};
     };
   };
-in 
+in
 [
-  { 
+  {
     hydraJobs.normal = project.hydraJobs;
     hydraJobs.profiled = project.variants.profiled.hydraJobs;
     hydraJobs.ghc928 = project.variants.ghc928.hydraJobs;
@@ -1475,13 +1475,13 @@ in
     packages.read-the-docs-ghc928 = project.variants.ghc928.read-the-docs-site;
 
     hydraJobs.ghc928-mingwW64 = project.variants.ghc928.cross.mingwW64.hydraJobs;
-  } 
+  }
 ]
 
 ```
 
 
-This attribute contains the variants for your project, 
+This attribute contains the variants for your project,
 as defined in your [`mkHaskellProject.<in>.cabalProject`](#mkhaskellprojectincabalproject)`.flake.variants`.
 
 Each variant has exaclty the same attributes as the main project.
@@ -1553,11 +1553,11 @@ env = {
 ```
 
 
-Custom environment variables. 
+Custom environment variables.
 
 Considering the example above, the following bash code will be executed every time you enter the shell:
 
-```bash 
+```bash
 export PGUSER="postgres"
 export THE_ANSWER="42"
 ```
@@ -1588,16 +1588,16 @@ This field will be used as the shell's derivation name and it will also be used 
 
 
 
-You can add anything you want here, so long as it's a derivation with executables in the `/bin` folder. 
+You can add anything you want here, so long as it's a derivation with executables in the `/bin` folder.
 
 What you put here ends up in your `$PATH` (basically the `buildInputs` in `mkDerivation`).
 
 For example:
 ```nix
 packages = [
-  pkgs.hello 
-  pkgs.curl 
-  pkgs.sqlite3 
+  pkgs.hello
+  pkgs.curl
+  pkgs.sqlite3
   pkgs.nodePackages.yo
 ]
 ```
@@ -1610,7 +1610,7 @@ packages = [
 ];
 ```
 
-Be careful not to reference your project's own cabal packages via `hsPkgs`. 
+Be careful not to reference your project's own cabal packages via `hsPkgs`.
 
 If you do, then `nix develop` will build your project every time you enter the shell, and it will fail to do so if there are Haskell compiler errors.
 
@@ -1626,7 +1626,7 @@ If you do, then `nix develop` will build your project every time you enter the s
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 
 lib.iogx.mkShell {
@@ -1669,7 +1669,7 @@ It is sufficient to set the `enable` flag to `true` to make the hook active.
 
 When enabled, some hooks expect to find a configuration file in the root of the repository:
 
-| Hook Name | Config File | 
+| Hook Name | Config File |
 | --------- | ----------- |
 | `stylish-haskell` | `.stylish-haskell.yaml` |
 | `editorconfig-checker` | `.editorconfig` |
@@ -1714,7 +1714,7 @@ The `cabal-fmt` pre-commit hook.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -1729,8 +1729,8 @@ Whether to enable this pre-commit hook.
 
 If `false`, the hook will not be installed.
 
-If `true`, the hook will become available in the shell: 
-```bash 
+If `true`, the hook will become available in the shell:
+```bash
 pre-commit run <hook-name>
 ```
 
@@ -1746,7 +1746,7 @@ pre-commit run <hook-name>
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -1778,7 +1778,7 @@ However you can *append* additional options to a tool's command by setting this 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -1831,7 +1831,7 @@ The `editorconfig-checker` pre-commit hook.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -1846,8 +1846,8 @@ Whether to enable this pre-commit hook.
 
 If `false`, the hook will not be installed.
 
-If `true`, the hook will become available in the shell: 
-```bash 
+If `true`, the hook will become available in the shell:
+```bash
 pre-commit run <hook-name>
 ```
 
@@ -1863,7 +1863,7 @@ pre-commit run <hook-name>
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -1895,7 +1895,7 @@ However you can *append* additional options to a tool's command by setting this 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -1948,7 +1948,7 @@ The `fourmolu` pre-commit hook.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -1963,8 +1963,8 @@ Whether to enable this pre-commit hook.
 
 If `false`, the hook will not be installed.
 
-If `true`, the hook will become available in the shell: 
-```bash 
+If `true`, the hook will become available in the shell:
+```bash
 pre-commit run <hook-name>
 ```
 
@@ -1980,7 +1980,7 @@ pre-commit run <hook-name>
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2012,7 +2012,7 @@ However you can *append* additional options to a tool's command by setting this 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2065,7 +2065,7 @@ The `hlint` pre-commit hook.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2080,8 +2080,8 @@ Whether to enable this pre-commit hook.
 
 If `false`, the hook will not be installed.
 
-If `true`, the hook will become available in the shell: 
-```bash 
+If `true`, the hook will become available in the shell:
+```bash
 pre-commit run <hook-name>
 ```
 
@@ -2097,7 +2097,7 @@ pre-commit run <hook-name>
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2129,7 +2129,7 @@ However you can *append* additional options to a tool's command by setting this 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2182,7 +2182,7 @@ The `nixpkgs-fmt` pre-commit hook.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2197,8 +2197,8 @@ Whether to enable this pre-commit hook.
 
 If `false`, the hook will not be installed.
 
-If `true`, the hook will become available in the shell: 
-```bash 
+If `true`, the hook will become available in the shell:
+```bash
 pre-commit run <hook-name>
 ```
 
@@ -2214,7 +2214,7 @@ pre-commit run <hook-name>
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2246,7 +2246,7 @@ However you can *append* additional options to a tool's command by setting this 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2299,7 +2299,7 @@ The `optipng` pre-commit hook.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2314,8 +2314,8 @@ Whether to enable this pre-commit hook.
 
 If `false`, the hook will not be installed.
 
-If `true`, the hook will become available in the shell: 
-```bash 
+If `true`, the hook will become available in the shell:
+```bash
 pre-commit run <hook-name>
 ```
 
@@ -2331,7 +2331,7 @@ pre-commit run <hook-name>
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2363,7 +2363,7 @@ However you can *append* additional options to a tool's command by setting this 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2416,7 +2416,7 @@ The `prettier` pre-commit hook.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2431,8 +2431,8 @@ Whether to enable this pre-commit hook.
 
 If `false`, the hook will not be installed.
 
-If `true`, the hook will become available in the shell: 
-```bash 
+If `true`, the hook will become available in the shell:
+```bash
 pre-commit run <hook-name>
 ```
 
@@ -2448,7 +2448,7 @@ pre-commit run <hook-name>
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2480,7 +2480,7 @@ However you can *append* additional options to a tool's command by setting this 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2533,7 +2533,7 @@ The `purs-tidy` pre-commit hook.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2548,8 +2548,8 @@ Whether to enable this pre-commit hook.
 
 If `false`, the hook will not be installed.
 
-If `true`, the hook will become available in the shell: 
-```bash 
+If `true`, the hook will become available in the shell:
+```bash
 pre-commit run <hook-name>
 ```
 
@@ -2565,7 +2565,7 @@ pre-commit run <hook-name>
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2597,7 +2597,7 @@ However you can *append* additional options to a tool's command by setting this 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2650,7 +2650,7 @@ The `shellcheck` pre-commit hook.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2665,8 +2665,8 @@ Whether to enable this pre-commit hook.
 
 If `false`, the hook will not be installed.
 
-If `true`, the hook will become available in the shell: 
-```bash 
+If `true`, the hook will become available in the shell:
+```bash
 pre-commit run <hook-name>
 ```
 
@@ -2682,7 +2682,7 @@ pre-commit run <hook-name>
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2714,7 +2714,7 @@ However you can *append* additional options to a tool's command by setting this 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2767,7 +2767,7 @@ The `stylish-haskell` pre-commit hook.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2782,8 +2782,8 @@ Whether to enable this pre-commit hook.
 
 If `false`, the hook will not be installed.
 
-If `true`, the hook will become available in the shell: 
-```bash 
+If `true`, the hook will become available in the shell:
+```bash
 pre-commit run <hook-name>
 ```
 
@@ -2799,7 +2799,7 @@ pre-commit run <hook-name>
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2831,7 +2831,7 @@ However you can *append* additional options to a tool's command by setting this 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   preCommit = {
@@ -2863,7 +2863,7 @@ In general you don't want to override this, especially for the Haskell tools, be
 
 
 
-Terminal prompt, i.e. the value of the `PS1` environment variable. 
+Terminal prompt, i.e. the value of the `PS1` environment variable.
 
 You can use ANSI color escape sequences to customize your prompt, but you'll need to double-escape the left slashes because `prompt` is a nix string that will be embedded in a bash string.
 
@@ -2929,7 +2929,7 @@ The attribute names (`foobar` and `waz` in the example above) will be available 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   scripts = {
@@ -2957,7 +2957,7 @@ A string that will appear next to the script name when printed.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   scripts = {
@@ -2988,7 +2988,7 @@ This can be used to include scripts conditionally.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   scripts = {
@@ -3019,7 +3019,7 @@ This field is required.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   scripts = {
@@ -3035,7 +3035,7 @@ lib.iogx.mkShell {
 
 A string to tag the script.
 
-This will be used to group scripts together so that they look prettier and more organized when listed. 
+This will be used to group scripts together so that they look prettier and more organized when listed.
 
 
 ---
@@ -3089,7 +3089,7 @@ The value of [`mkShell.<in>.tools.haskellCompilerVersion`](#mkshellintoolshaskel
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.cabal-fmt = repoRoot.nix.patched-cabal-fmt;
@@ -3114,7 +3114,7 @@ If unset or `null`, a default `cabal-fmt` will be provided, which is independent
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.cabal-install = repoRoot.nix.patched-cabal-install;
@@ -3139,7 +3139,7 @@ If unset or `null`, [`mkShell.<in>.tools.haskellCompilerVersion`](#mkshellintool
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.editorconfig-checker = repoRoot.nix.patched-editorconfig-checker;
@@ -3164,7 +3164,7 @@ If unset or `null`, the most recent version available will be used.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.fourmolu = repoRoot.nix.patched-fourmolu;
@@ -3189,7 +3189,7 @@ If unset or `null`, a default `fourmolu` will be provided, which is independent 
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.ghcid = repoRoot.nix.patched-ghcid;
@@ -3214,7 +3214,7 @@ If unset or `null`, [`mkShell.<in>.tools.haskellCompilerVersion`](#mkshellintool
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.haskell-language-server = repoRoot.nix.patched-haskell-language-server;
@@ -3239,7 +3239,7 @@ If unset or `null`, [`mkShell.<in>.tools.haskellCompilerVersion`](#mkshellintool
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.haskell-language-server-wrapper = repoRoot.nix.pathced-haskell-language-server-wrapper;
@@ -3264,7 +3264,7 @@ If unset or `null`, [`mkShell.<in>.tools.haskellCompilerVersion`](#mkshellintool
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.haskellCompilerVersion = "ghc8107";
@@ -3282,10 +3282,10 @@ This determines the version of other tools like `cabal-install` and `haskell-lan
 
 If this option is unset of null, then no Haskell tools will be made available in the shell.
 
-However if you enable some Haskell-specific [`mkShell.<in>.preCommit`](#mkshellinprecommit) hooks, then 
+However if you enable some Haskell-specific [`mkShell.<in>.preCommit`](#mkshellinprecommit) hooks, then
 that Haskell tool will be installed automatically using `ghc8107` as the default compiler version.
 
-When using [`mkHaskellProject.<in>.shellArgs`](#mkhaskellprojectinshellargs), this option is automatically set to 
+When using [`mkHaskellProject.<in>.shellArgs`](#mkhaskellprojectinshellargs), this option is automatically set to
 the same value as the project's (or project variant's) `compiler-nix-name`.
 
 
@@ -3300,7 +3300,7 @@ the same value as the project's (or project variant's) `compiler-nix-name`.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.hlint = repoRoot.nix.patched-hlint;
@@ -3325,7 +3325,7 @@ If unset or `null`, [`mkShell.<in>.tools.haskellCompilerVersion`](#mkshellintool
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.nixpkgs-fmt = repoRoot.nix.patched-nixpkgs-fmt;
@@ -3350,7 +3350,7 @@ If unset or `null`, the most recent version available will be used.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.optipng = repoRoot.nix.patched-optipng;
@@ -3375,7 +3375,7 @@ If unset or `null`, the most recent version available will be used.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.prettier = repoRoot.nix.patched-prettier;
@@ -3400,7 +3400,7 @@ If unset or `null`, the most recent version available will be used.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.purs-tidy = repoRoot.nix.patched-purs-tidy;
@@ -3425,7 +3425,7 @@ If unset or `null`, the most recent version available will be used.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.shellcheck = repoRoot.nix.patched-shellcheck;
@@ -3450,7 +3450,7 @@ If unset or `null`, the most recent version available will be used.
 
 **Example**: 
 ```nix
-# shell.nix 
+# shell.nix
 { repoRoot, inputs, pkgs, lib, system }:
 lib.iogx.mkShell {
   tools.stylish-haskell = repoRoot.nix.patched-stylish-haskell;
@@ -3495,7 +3495,7 @@ This field is optional and defaults to a simple welcome message using the [`mkSh
 { repoRoot, inputs, pkgs, lib, system }:
 let
   shell = lib.iogx.mkShell {};
-in 
+in
 [
   {
     devShells.foo = shell;

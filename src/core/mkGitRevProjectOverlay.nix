@@ -1,8 +1,8 @@
 { repoRoot, iogx-inputs, user-inputs, pkgs, lib, system, ... }:
 
-args: 
+args:
 
-let 
+let
 
   evaluated-modules = lib.evalModules {
     modules = [{
@@ -16,12 +16,12 @@ let
 
 
   overlay = _: prev: {
-    hsPkgs = prev.pkgs.pkgsHostTarget.setGitRevForPaths 
-      prev.pkgs.gitrev 
-      args.exePaths 
+    hsPkgs = prev.pkgs.pkgsHostTarget.setGitRevForPaths
+      prev.pkgs.gitrev
+      args.exePaths
       prev.hsPkgs;
   };
 
-in 
+in
 
-  args.project.appendOverlays [overlay]
+args.project.appendOverlays [ overlay ]

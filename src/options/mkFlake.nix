@@ -43,7 +43,7 @@ let
       outputs = l.mkOption {
         type = l.types.functionTo (l.types.listOf l.types.attrs);
         example = l.literalExpression ''
-          # flake.nix 
+          # flake.nix
           {
             outputs = inputs: inputs.iogx.lib.mkFlake {
               outputs = import ./outputs.nix;
@@ -72,7 +72,7 @@ let
 
           `outputs` receives an attrset and must return a list of attrsets.
 
-          The returned attrsets are recursively merged top-to-bottom. 
+          The returned attrsets are recursively merged top-to-bottom.
 
           Each of the input attributes to the `outputs` function is documented below.
 
@@ -86,17 +86,17 @@ let
 
           For example, if this is your top-level repository folder:
           ```
-          * src 
-            - Main.hs 
-          - cabal.project 
+          * src
+            - Main.hs
+          - cabal.project
           * nix
             - outputs.nix
             - alpha.nix
             * bravo
-              - charlie.nix 
+              - charlie.nix
               - india.nix
               - hotel.json
-              * delta 
+              * delta
                 - echo.nix
                 - golf.txt
           ```
@@ -123,16 +123,16 @@ let
 
           # ./nix/per-system-outputs.nix
           { repoRoot, inputs, pkgs, system, lib, ... }:
-          { 
-            packages.example = 
-              let 
+          {
+            packages.example =
+              let
                 a = repoRoot.nix.alpha;
                 c = repoRoot.nix.bravo.charlie;
                 e = repoRoot.nix.bravo.delta.echo "arg1" {};
                 f = repoRoot.nix.bravo.delta."golf.txt";
                 g = repoRoot.src."Main.hs";
               in
-                42; 
+                42;
           }
           ```
 
@@ -149,22 +149,22 @@ let
           Your flake inputs as defined in ${link "mkFlake.<in>.inputs"}.
 
           Note that these `inputs` have been de-systemized against the current system.
-          
+
           This means that you can use the following syntax:
           ```nix
           inputs.n2c.packages.nix2container
           inputs.self.packages.foo
           ```
-          
+
           In addition to the usual syntax which mentions `system` explicitely.
-          ```nix 
+          ```nix
           inputs.n2c.packages.x86_64-linux.nix2container
           inputs.self.packages.x86_64-darwin.foo
           ```
 
           #### `pkgs`
 
-          A `nixpkgs` instantiated against the current system (as found in `pkgs.stdenv.system`), for each of your ${link "mkFlake.<in>.systems"}, and overlaid with goodies from `haskell.nix` and `iohk-nix`. 
+          A `nixpkgs` instantiated against the current system (as found in `pkgs.stdenv.system`), for each of your ${link "mkFlake.<in>.systems"}, and overlaid with goodies from `haskell.nix` and `iohk-nix`.
 
           A `nixpkgs` is also available at `inputs.nixpkgs.legacyPackages` but that should *not* be used because it doesn't have the required overlays.
 
@@ -177,9 +177,9 @@ let
           #### `lib`
 
           This is just `pkgs.lib` plus the `iogx` attrset, which contains library functions and utilities.
-          
-          In here you will find the following: 
-          ```nix 
+
+          In here you will find the following:
+          ```nix
           lib.iogx.mkShell {}
           lib.iogx.mkHaskellProject {}
           lib.iogx.mkHydraRequiredJob {}
@@ -228,8 +228,8 @@ let
           # flake.nix
           {
             outputs = inputs: inputs.iogx.lib.mkFlake {
-              nixpkgsArgs.overlays = [(self: super: { 
-                acme = super.callPackage ./nix/acme.nix { }; 
+              nixpkgsArgs.overlays = [(self: super: {
+                acme = super.callPackage ./nix/acme.nix { };
               })];
               nixpkgsArgs.config.permittedInsecurePackages [
                 "python-2.7.18.6"
@@ -238,9 +238,9 @@ let
           }
         '';
         defaultText = l.literalExpression ''
-          { 
-            config = { }; 
-            overlays = [ ]; 
+          {
+            config = { };
+            overlays = [ ];
           }
         '';
       };

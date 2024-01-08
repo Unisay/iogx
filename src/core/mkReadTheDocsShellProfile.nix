@@ -46,6 +46,4 @@ let
 
 in
 
-if readTheDocs.enable then shell-profile else {} 
-
-
+if readTheDocs.enable then shell-profile else { }

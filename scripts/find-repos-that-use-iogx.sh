@@ -6,7 +6,7 @@ fi
 GITHUB_TOKEN="$1"
 
 check_one_repo() {
-  local repo_obj="$1" 
+  local repo_obj="$1"
   local repo_name="$(echo "$repo_obj" | jq -r .name)"
 
   local flake_lock="$(mktemp)"
@@ -40,7 +40,7 @@ check_one_repo() {
       "$iogx_flake_hash" \
       "$datetime" \
       "$direct_dep"
-  fi 
+  fi
 }
 
 
@@ -55,4 +55,4 @@ check_all_repos() {
 printf "%-64s   %-40s   %-10s   %s\n" "repo" "iogx gitrev" "iogx time" "depend"
 check_all_repos | sort -rk3
 
-wait 
+wait

@@ -247,9 +247,9 @@ let
 
 
   name-and-welcome-message-profile = {
-    shellHook = ''  
+    shellHook = ''
       export PS1="${shell.prompt}"
-      echo 
+      echo
       printf "${shell.welcomeMessage}"
       echo
       echo
@@ -303,7 +303,7 @@ let
   devShell' = pkgs.mkShell {
     name = shell.name;
     buildInputs = final-profile.packages ++ final-scripts-as-packages;
-    shellHook = ''  
+    shellHook = ''
       ${final-profile.shellHook}
       ${final-env-as-bash}
     '';

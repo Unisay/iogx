@@ -59,22 +59,26 @@ let
     **Type**: ${value.type}
 
     ${
-      if lib.hasAttr "default" value then 
+      if lib.hasAttr "default" value then
+        # TODO: Only add the space at the end if prettyPrintValue does not start
+        # with newline.
         ''
           **Default**: ${prettyPrintValue value.default}
         ''
-      else 
+      else
         ""
     }
     ${
       if value.readOnly then "**Read Only**" else ""
     }
-    ${ 
-      if lib.hasAttr "example" value then 
+    ${
+      if lib.hasAttr "example" value then
+        # TODO: Only add the space at the end if prettyPrintValue does not start
+        # with newline.
         ''
           **Example**: ${prettyPrintValue value.example}
         ''
-      else 
+      else
         ""
     }
 
@@ -85,13 +89,13 @@ in
 
 pkgs.writeText "api.md" ''
 
-    # API Reference 
+    # API Reference
 
-    1. ${lib.iogx.utils.headerToLocalMarkDownLink "./flake.nix" "flake.nix"} 
+    1. ${lib.iogx.utils.headerToLocalMarkDownLink "./flake.nix" "flake.nix"}
         - Top-level `flake.nix` file.
-    2. ${lib.iogx.utils.headerToLocalMarkDownLink "inputs.iogx.lib.mkFlake" "mkFlake"} 
+    2. ${lib.iogx.utils.headerToLocalMarkDownLink "inputs.iogx.lib.mkFlake" "mkFlake"}
         - Makes your flake outputs.
-    3. ${lib.iogx.utils.headerToLocalMarkDownLink "pkgs.lib.iogx.mkHaskellProject" "mkHaskellProject"} 
+    3. ${lib.iogx.utils.headerToLocalMarkDownLink "pkgs.lib.iogx.mkHaskellProject" "mkHaskellProject"}
         - Makes a [`haskell.nix`](https://github.com/input-output-hk/haskell.nix) project.
     4. ${lib.iogx.utils.headerToLocalMarkDownLink "pkgs.lib.iogx.mkShell" "mkShell"}
         - Makes a `devShell` with `pre-commit-check` and tools.

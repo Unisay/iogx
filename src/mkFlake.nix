@@ -6,7 +6,7 @@ let
   modularise = import ./lib/modularise.nix iogx-inputs;
   options = import ./options iogx-inputs;
 
-  # prefetch-npm-deps is broken in the current version of nixpkgs (which is 
+  # prefetch-npm-deps is broken in the current version of nixpkgs (which is
   # nixpkgs-unstable coming from haskell.nix), so we need this hack.
   # Same for dockerTools
   # TODO when we bump haskell-nix, check if this is still needed.
@@ -34,8 +34,8 @@ let
           iogx-inputs.haskell-nix.overlay
           iogx-inputs.iohk-nix.overlays.haskell-nix-crypto
           # WARNING: The order of these is crucial
-          # The iohk-nix.overlays.haskell-nix-crypto depends on both the 
-          # iohk-nix.overlays.crypto and the haskell-nix.overlay overlays 
+          # The iohk-nix.overlays.haskell-nix-crypto depends on both the
+          # iohk-nix.overlays.crypto and the haskell-nix.overlay overlays
           # and so must be after them in the list of overlays to nixpkgs.
           iogx-inputs.iohk-nix.overlays.haskell-nix-extra
           (mkCustomNixpkgsOverlay user-inputs)
